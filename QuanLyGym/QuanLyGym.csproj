@@ -167,6 +167,7 @@
     <Compile Include="BLL\HopDongBLL.cs" />
     <Compile Include="BLL\NhanVienBLL.cs" />
     <Compile Include="BLL\TaiKhoanBLL.cs" />
+    <Compile Include="BLL\ThietBiGymBLL.cs" />
     <Compile Include="Formmain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,6 +203,12 @@
     <Compile Include="Models\ThietBiGym.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\UCGoiTapGym.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCGoiTapGym.Designer.cs">
+      <DependentUpon>UCGoiTapGym.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UCHoiVien.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -220,6 +227,12 @@
     <Compile Include="UserControls\UCNhanVien.Designer.cs">
       <DependentUpon>UCNhanVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UCThietBiGym.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCThietBiGym.Designer.cs">
+      <DependentUpon>UCThietBiGym.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Formmain.resx">
       <DependentUpon>Formmain.cs</DependentUpon>
     </EmbeddedResource>
@@ -235,6 +248,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\UCGoiTapGym.resx">
+      <DependentUpon>UCGoiTapGym.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCHoiVien.resx">
       <DependentUpon>UCHoiVien.cs</DependentUpon>
     </EmbeddedResource>
@@ -243,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCNhanVien.resx">
       <DependentUpon>UCNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCThietBiGym.resx">
+      <DependentUpon>UCThietBiGym.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

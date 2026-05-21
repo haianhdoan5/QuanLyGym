@@ -31,7 +31,7 @@ namespace QuanLyGym.UserControls
         {
             try
             {
-                List<NhanVien> list = bll.GetAll();
+                List<NhanVien> list = bll.GetNhanVien();
                 dgvNhanVien.DataSource = list;
 
                 // Format columns
@@ -95,8 +95,8 @@ namespace QuanLyGym.UserControls
                     ChucVu = txtChucVu.Text
                 };
 
-                string result = bll.Insert(nv);
-                if (result == "Success")
+                bool result = bll.AddNhanVien(nv);
+                if (result)
                 {
                     MessageBox.Show("Thêm nhân viên thành công!");
                     ClearForm();
@@ -104,7 +104,7 @@ namespace QuanLyGym.UserControls
                 }
                 else
                 {
-                    MessageBox.Show(result);
+                    MessageBox.Show("Mã nhân viên này đã tồn tại!");
                 }
             }
             catch (Exception ex)

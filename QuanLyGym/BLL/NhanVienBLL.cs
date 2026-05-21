@@ -6,10 +6,12 @@ using System.Runtime.Remoting.Contexts;
 
 namespace QuanLyGym.BLL
 {
+
     public class NhanVienBLL
     {
+        private GymDbContext db = new GymDbContext();
         // 1. Lấy danh sách Nhân Viên
-        public List<NhanVien> GetAll()
+        public List<NhanVien> GetNhanVien()
         {
             using (var context = new GymDbContext())
             {
@@ -17,24 +19,22 @@ namespace QuanLyGym.BLL
             }
         }
 
+        public NhanVien GetById(string maNV) => db.NhanVien.FirstOrDefault(n => n.MaNv == maNV);
         // 2. Thêm Nhân Viên
-        public string Insert(NhanVien nv)
+        public bool AddNhanVien(NhanVien nv)
         {
-            using(var context = new GymDbContext())
+            try
             {
-                try
-                {
-                    var check = context.NhanVien.Find(nv.MaNv);
-                    if (check != null) return "Mã nhân viên này đã tồn tại!";
+                var check = db.NhanVien.Find(nv.MaNv);
+                if (check != null) return false;
 
-                    context.NhanVien.Add(nv);
-                    context.SaveChanges();
-                    return "Success";
-                }
-                catch (Exception ex)
-                {
-                    return "Lỗi thêm: " + ex.Message;
-                }
+                db.NhanVien.Add(nv);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 

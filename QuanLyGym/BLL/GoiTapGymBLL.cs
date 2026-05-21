@@ -1,7 +1,7 @@
-﻿using QuanLyGym.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using QuanLyGym.Models;
 
 namespace QuanLyGym.BLL
 {
@@ -9,49 +9,70 @@ namespace QuanLyGym.BLL
     {
         private GymDbContext db = new GymDbContext();
 
-        // Lấy tất cả
-        public List<GoiTapGym> GetAll()
+        // Lấy danh sách toàn bộ gói tập
+        public List<GoiTapGym> GetAllGoiTap()
         {
-            using (var context = new GymDbContext())
+            return db.GoiTapGym.ToList();
+        }
+
+        // Thêm gói tập mới
+        public bool AddGoiTap(GoiTapGym goiTap)
+        {
+            try
             {
-                return context.GoiTapGym.ToList(); // Tùy tên DbSet của bạn
+                // Kiểm tra trùng mã gói
+                var check = db.GoiTapGym.Find(goiTap.MaGoi);
+                if (check != null) return false;
+
+                db.GoiTapGym.Add(goiTap);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
 
-        // Lấy theo ID
-        public HoiVien GetById(string maHV) => db.HoiVien.FirstOrDefault(h => h.MaHv == maHV);
-
-        // Thêm mới
-        public bool Insert(HoiVien hv)
+        // Cập nhật thông tin gói tập
+        public bool UpdateGoiTap(GoiTapGym goiTap)
         {
-            db.HoiVien.Add(hv);
-            return db.SaveChanges() > 0;
+            try
+            {
+                var gtUpdate = db.GoiTapGym.Find(goiTap.MaGoi);
+                if (gtUpdate == null) return false;
+
+                gtUpdate.TenGoi = goiTap.TenGoi;
+                gtUpdate.DonGia = goiTap.DonGia;
+                gtUpdate.ThoiHan = goiTap.ThoiHan;
+                gtUpdate.MaKm = goiTap.MaKm; // Có thể null nếu không áp dụng khuyến mãi
+
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-        // Cập nhật
-        public bool Update(HoiVien hvMoi)
+        // Xóa gói tập
+        public bool DeleteGoiTap(string maGoi)
         {
-            var hvCu = db.HoiVien.FirstOrDefault(h => h.MaHv == hvMoi.MaHv);
-            if (hvCu != null)
+            try
             {
-                hvCu.TenHv = hvMoi.TenHv;
-                hvCu.GioiTinh = hvMoi.GioiTinh;
-                hvCu.Sdt = hvMoi.Sdt;
-                return db.SaveChanges() > 0;
-            }
-            return false;
-        }
+                var gt = db.GoiTapGym.Find(maGoi);
+                if (gt == null) return false;
 
-        // Xóa
-        public bool Delete(string maHV)
-        {
-            var hv = db.HoiVien.FirstOrDefault(h => h.MaHv == maHV);
-            if (hv != null)
-            {
-                db.HoiVien.Remove(hv);
-                return db.SaveChanges() > 0;
+                db.GoiTapGym.Remove(gt);
+                db.SaveChanges();
+                return true;
             }
-            return false;
+            catch (Exception ex)
+            {
+                
+                return false;
+            }
         }
     }
 }

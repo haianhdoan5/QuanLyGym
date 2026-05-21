@@ -17,6 +17,7 @@ namespace QuanLyGym.UserControls
         HopDongBLL hdBLL = new HopDongBLL();
         HoiVienBLL hvBLL = new HoiVienBLL();
         GoiTapGymBLL gtBLL = new GoiTapGymBLL();
+        NhanVienBLL nvBLL = new NhanVienBLL();
 
         public UCHopDong()
         {
@@ -37,9 +38,14 @@ namespace QuanLyGym.UserControls
             cbHoiVien.ValueMember = "MaHV";
 
             // Đổ dữ liệu Gói Tập
-            cbGoiTap.DataSource = gtBLL.GetAll();
+            cbGoiTap.DataSource = gtBLL.GetAllGoiTap();
             cbGoiTap.DisplayMember = "TenGoi";
             cbGoiTap.ValueMember = "MaGoi";
+
+            // Đổ dữ liệu Nhân Viên
+            cbNhanVien.DataSource = nvBLL.GetNhanVien();
+            cbNhanVien.DisplayMember = "TenNv";
+            cbNhanVien.ValueMember = "MaNv";
         }
 
         private void LoadDanhSachHopDong()
@@ -166,7 +172,13 @@ namespace QuanLyGym.UserControls
 
         private void cbNhanVien_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // Lấy MaNv từ ComboBox khi chọn nhân viên
+            if (cbNhanVien.SelectedValue != null)
+            {
+                string maNv = cbNhanVien.SelectedValue.ToString();
+                // Bạn có thể sử dụng maNv cho các xử lý khác tại đây nếu cần
+                // Ví dụ: MessageBox.Show("Nhân viên được chọn: " + maNv);
+            }
         }
 
         private void cbGoiTap_SelectedIndexChanged(object sender, EventArgs e)

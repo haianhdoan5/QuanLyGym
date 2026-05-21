@@ -33,19 +33,20 @@ namespace QuanLyGym
 
         private void btnHopDong_Click(object sender, EventArgs e)
         {
-            UCHopDong uc = new UCHopDong();
-            TargetControlToPanel(uc);
+            UCHopDong ucHopDong = new UCHopDong();
+            TargetControlToPanel(ucHopDong);
         }
 
         private void btnNhanVien_Click(object sender, EventArgs e)
         {
-            UCNhanVien uc = new UCNhanVien();
-            TargetControlToPanel(uc);
+            UCNhanVien ucNhanVien = new UCNhanVien();
+            TargetControlToPanel(ucNhanVien);
         }
 
         private void btnThietBi_Click(object sender, EventArgs e)
         {
-
+            UCThietBiGym ucThietBi = new UCThietBiGym();
+            TargetControlToPanel(ucThietBi);
         }
 
         private void btnBaoCao_Click(object sender, EventArgs e)
@@ -55,7 +56,8 @@ namespace QuanLyGym
 
         private void btnGoiTap_Click(object sender, EventArgs e)
         {
-
+            UCGoiTapGym ucGoiTap = new UCGoiTapGym();
+            TargetControlToPanel(ucGoiTap);
         }
 
         private void panelMenu_Paint(object sender, PaintEventArgs e)
