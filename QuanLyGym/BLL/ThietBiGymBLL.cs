@@ -9,6 +9,17 @@ namespace QuanLyGym.BLL
     {
         private GymDbContext db = new GymDbContext();
 
+        // Lấy mã thiết bị tiếp theo (auto-increment)
+        public string GetNextMaTb()
+        {
+            var maxId = db.ThietBiGym.ToList()
+                .Where(tb => tb.MaTb.StartsWith("TB"))
+                .Select(tb => int.Parse(tb.MaTb.Substring(2)))
+                .DefaultIfEmpty(0)
+                .Max();
+            return "TB" + (maxId + 1).ToString("D2");
+        }
+
         // Lấy danh sách toàn bộ thiết bị
         public List<ThietBiGym> GetAllThietBi()
         {
@@ -69,8 +80,7 @@ namespace QuanLyGym.BLL
                 var tb = db.ThietBiGym.Find(maTB);
                 if (tb == null) return false;
 
-                // Tuân thủ No Delete Policy: Thay vì xóa, cập nhật tình trạng
-                tb.TinhTrang = "Đã thanh lý";
+                db.ThietBiGym.Remove(tb); // Xóa dòng thật sự
                 db.SaveChanges();
                 return true;
             }

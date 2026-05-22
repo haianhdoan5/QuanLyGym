@@ -9,6 +9,17 @@ namespace QuanLyGym.BLL
     {
         private GymDbContext db = new GymDbContext();
 
+        // Lấy mã khuyến mãi tiếp theo (auto-increment)
+        public string GetNextMaKm()
+        {
+            var maxId = db.KhuyenMai.ToList()
+                .Where(km => km.MaKm.StartsWith("KM"))
+                .Select(km => int.Parse(km.MaKm.Substring(2)))
+                .DefaultIfEmpty(0)
+                .Max();
+            return "KM" + (maxId + 1).ToString("D2");
+        }
+
         // Lấy danh sách toàn bộ khuyến mãi
         public List<KhuyenMai> GetAll()
         {

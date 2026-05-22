@@ -51,6 +51,7 @@
             this.txtMaHD.TabIndex = 0;
             this.txtMaHD.Text = "Nhập Mã hợp đồng";
             this.txtMaHD.TextChanged += new System.EventHandler(this.txtMaHD_TextChanged);
+            this.txtMaHD.Visible = false;
             // 
             // txtNoiDung
             // 

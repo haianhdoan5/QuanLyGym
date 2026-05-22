@@ -53,5 +53,19 @@ namespace QuanLyGym.BLL
             }
             return false;
         }
+
+        public string GetNextMaHV()
+        {
+            using (var context = new GymDbContext())
+            {
+                var maxId = context.HoiVien.ToList()
+                    .Where(h => h.MaHv.StartsWith("HV"))
+                    .Select(h => int.Parse(h.MaHv.Substring(2)))
+                    .DefaultIfEmpty(0)
+                    .Max();
+
+                return "HV" + (maxId + 1).ToString("D2");
+            }
+        }
     }
 }

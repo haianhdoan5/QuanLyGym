@@ -51,6 +51,7 @@ namespace QuanLyGym.UserControls
             this.label1.Size = new System.Drawing.Size(101, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Mã Khuyến Mãi:";
+            this.label1.Visible = false;
             // 
             // label2
             // 
@@ -69,6 +70,7 @@ namespace QuanLyGym.UserControls
             this.txtMaKm.Name = "txtMaKm";
             this.txtMaKm.Size = new System.Drawing.Size(265, 22);
             this.txtMaKm.TabIndex = 2;
+            this.txtMaKm.Visible = false;
             // 
             // txtPhanTramGiam
             // 

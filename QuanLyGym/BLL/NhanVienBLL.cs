@@ -87,5 +87,21 @@ namespace QuanLyGym.BLL
                 }
             }
         }
+
+        public string GetNextMaNV()
+        {
+            using (var context = new GymDbContext())
+            {
+                // Lấy tất cả mã NV, cắt bỏ chữ "NV", ép sang kiểu số, tìm số lớn nhất
+                var maxId = context.NhanVien.ToList()
+                    .Where(n => n.MaNv.StartsWith("NV"))
+                    .Select(n => int.Parse(n.MaNv.Substring(2)))
+                    .DefaultIfEmpty(0)
+                    .Max();
+
+                // Cộng 1 và format lại thành dạng NV01, NV02...
+                return "NV" + (maxId + 1).ToString("D2");
+            }
+        }
     }
 }

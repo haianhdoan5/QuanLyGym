@@ -190,35 +190,44 @@ namespace QuanLyGym.UserControls
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaHD.Text))
+            // Validation: Kiểm tra các trường bắt buộc (không cần kiểm tra MaHD vì nó tự động sinh)
+            if (cbHoiVien.SelectedIndex == -1)
             {
-                MessageBox.Show("Vui lòng nhập Mã hợp đồng!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtMaHD.Focus();
+                MessageBox.Show("Vui lòng chọn hội viên!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbHoiVien.Focus();
+                return;
+            }
+
+            if (cbGoiTap.SelectedIndex == -1)
+            {
+                MessageBox.Show("Vui lòng chọn gói tập!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbGoiTap.Focus();
                 return;
             }
 
             HopDong hd = new HopDong();
 
-            // 1. Các trường dữ liệu từ Giao diện
-            hd.MaHd = txtMaHD.Text.Trim();
+            // 1. Auto-generate Mã Hợp Đồng
+            string maHDMoi = hdBLL.GetNextMaHD();
+            hd.MaHd = maHDMoi;
+
+            // 2. Các trường dữ liệu từ Giao diện
             hd.NoiDung = txtNoiDung.Text.Trim();
             hd.MaHv = cbHoiVien.SelectedValue?.ToString();
             hd.MaGoi = cbGoiTap.SelectedValue?.ToString();
             hd.MaNv = cbNhanVien.SelectedValue?.ToString();
 
-            // 2. Các trường hệ thống tự sinh
+            // 3. Các trường hệ thống tự sinh
             hd.NgayLap = DateTime.Now;
 
-            // 3. Các trường chưa có trên Giao diện (Để tránh lỗi SQL Server)
-            // LƯU Ý: Nếu DB bắt buộc (NOT NULL), bạn phải truyền 1 mã có thật (VD: "NV01"). 
-            // Nếu DB cho phép trống (Allow Null), bạn có thể gán null.
+            // 4. Các trường chưa có trên Giao diện
             hd.MaHoaDon = null;
 
             // Gọi BLL thêm dữ liệu
             string ketQua = hdBLL.Insert(hd);
             if (ketQua == "Success")
             {
-                MessageBox.Show("Lập hợp đồng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Lập hợp đồng thành công!\nMã hợp đồng: {maHDMoi}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadDanhSachHopDong();
                 btnLamMoi_Click(sender, e);
             }

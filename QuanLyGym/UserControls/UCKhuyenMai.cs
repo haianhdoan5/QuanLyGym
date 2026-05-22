@@ -52,13 +52,6 @@ namespace QuanLyGym.UserControls
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaKm.Text))
-            {
-                MessageBox.Show("Vui lòng nhập mã khuyến mãi!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtMaKm.Focus();
-                return;
-            }
-
             if (string.IsNullOrWhiteSpace(txtPhanTramGiam.Text))
             {
                 MessageBox.Show("Vui lòng nhập phần trăm giảm!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -75,9 +68,12 @@ namespace QuanLyGym.UserControls
 
             try
             {
+                // Tự động sinh mã khuyến mãi
+                string maKmMoi = kmBLL.GetNextMaKm();
+
                 KhuyenMai km = new KhuyenMai
                 {
-                    MaKm = txtMaKm.Text.Trim(),
+                    MaKm = maKmMoi,
                     PhanTramGiam = phanTramGiam
                 };
 
