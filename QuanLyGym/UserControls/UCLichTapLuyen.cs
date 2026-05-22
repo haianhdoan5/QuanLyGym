@@ -37,6 +37,8 @@ namespace QuanLyGym.UserControls
                 btnThem.Visible = false;
                 btnSua.Visible = false;
                 btnXoa.Visible = false;
+                pnlThongTin.Visible = false;
+                dgvLichTap.ReadOnly = true;
             }
         }
 
@@ -102,7 +104,7 @@ namespace QuanLyGym.UserControls
                 {
                     MaLt = txtMaLichTap.Text,
                     NgayTap = dtpNgayTap.Value,
-                    GioTap = TimeSpan.Parse(txtGioTap.Text ?? "00"),
+                    GioTap = TimeSpan.FromHours(int.TryParse(txtGioTap.Text, out int hour) ? hour : 0),
                     TrangThai = cbTrangThai.SelectedItem?.ToString() ?? "Chưa Tập",
                     MaHv = txtMaHV.Text,
                     MaNv = txtMaNV.Text
@@ -129,9 +131,10 @@ namespace QuanLyGym.UserControls
         {
             if (!isEditing)
             {
+                // TRƯỜNG HỢP 1: BẤM "SỬA" ĐỂ ĐỔ DỮ LIỆU LÊN FORM
                 if (dgvLichTap.SelectedRows.Count == 0)
                 {
-                    MessageBox.Show("Vui lòng chọn một lịch tập để sửa");
+                    MessageBox.Show("Vui lòng chọn một lịch tập để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -143,44 +146,77 @@ namespace QuanLyGym.UserControls
                 {
                     txtMaLichTap.Text = lichTap.MaLt;
                     dtpNgayTap.Value = lichTap.NgayTap ?? DateTime.Now;
-                    txtGioTap.Text = lichTap.GioTap?.ToString() ?? "00:00:00";
-                    cbTrangThai.SelectedItem = lichTap.TrangThai;
+
+                    // Hiển thị định dạng hh:mm cho gọn và dễ nhìn
+                    txtGioTap.Text = lichTap.GioTap?.ToString(@"hh\:mm") ?? "00:00";
+
+                    // Tìm và chọn đúng Item trong ComboBox
+                    cbTrangThai.Text = lichTap.TrangThai;
+
                     txtMaHV.Text = lichTap.MaHv;
                     txtMaNV.Text = lichTap.MaNv;
 
+                    // Chuyển trạng thái giao diện sang chế độ đang chỉnh sửa
                     isEditing = true;
                     btnSua.Text = "Lưu Sửa";
-                    txtMaLichTap.ReadOnly = true;
+                    txtMaLichTap.ReadOnly = true; // Khóa khóa chính không cho sửa
                 }
             }
             else
             {
+                // TRƯỜNG HỢP 2: BẤM "LƯU SỬA" ĐỂ CẬP NHẬT DATABASE
                 try
                 {
                     var lichTap = bll.GetById(currentMaLt);
-                    lichTap.NgayTap = dtpNgayTap.Value;
-                    lichTap.GioTap = TimeSpan.Parse(txtGioTap.Text ?? "00:00:00");
-                    lichTap.TrangThai = cbTrangThai.SelectedItem?.ToString() ?? "Chưa Tập";
-                    lichTap.MaHv = txtMaHV.Text;
-                    lichTap.MaNv = txtMaNV.Text;
+                    if (lichTap == null)
+                    {
+                        MessageBox.Show("Không tìm thấy dữ liệu lịch tập này trong hệ thống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
+                    lichTap.NgayTap = dtpNgayTap.Value;
+
+                    // XỬ LÝ ĐỒNG BỘ GIỜ TẬP THÔNG MINH:
+                    string inputGio = txtGioTap.Text.Trim();
+                    // Nhập mỗi số "3", tự động biến đổi thành "3:00" để Parse không lỗi
+                    if (int.TryParse(inputGio, out int hourOnly))
+                    {
+                        lichTap.GioTap = TimeSpan.FromHours(hourOnly);
+                    }
+                    else if (TimeSpan.TryParse(inputGio, out TimeSpan parsedTime))
+                    {
+                        lichTap.GioTap = parsedTime;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Giờ tập không hợp lệ! Vui lòng nhập số giờ (VD: 3) hoặc định dạng giờ (VD: 03:00).", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    lichTap.TrangThai = cbTrangThai.SelectedItem?.ToString() ?? cbTrangThai.Text ?? "Chưa Tập";
+                    lichTap.MaHv = txtMaHV.Text.Trim();
+                    lichTap.MaNv = txtMaNV.Text.Trim();
+
+                    // Gọi xuống tầng BLL để cập nhật
                     if (bll.Update(lichTap))
                     {
-                        MessageBox.Show("Cập nhật lịch tập thành công!", "Thành công");
+                        MessageBox.Show("Cập nhật lịch tập thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadData();
                         ClearForm();
+
+                        // Trả giao diện về trạng thái ban đầu
                         isEditing = false;
                         btnSua.Text = "Sửa";
                         txtMaLichTap.ReadOnly = false;
                     }
                     else
                     {
-                        MessageBox.Show("Cập nhật lịch tập thất bại");
+                        MessageBox.Show("Cập nhật lịch tập thất bại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi: " + ex.Message);
+                    MessageBox.Show("Lỗi hệ thống: " + ex.Message, "Ngoại lệ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

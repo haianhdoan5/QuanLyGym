@@ -30,8 +30,18 @@ namespace QuanLyGym.UserControls
 
         private void CheckPermissions()
         {
+            // Nếu là hội viên, ẩn tất cả chức năng
+            if (LuuThongTin.LoaiNguoiDung == "HoiVien")
+            {
+                btnThem.Visible = false;
+                btnSua.Visible = false;
+                btnXoa.Visible = false;
+                btnLamMoi.Visible = false;
+                pnlForm.Visible = false;
+                dgvHoiVien.ReadOnly = true;
+            }
             // Nếu là PT, chỉ cho xem
-            if (LuuThongTin.QuyenHan != null && 
+            else if (LuuThongTin.QuyenHan != null && 
                 (LuuThongTin.QuyenHan.Contains("PT") || 
                  LuuThongTin.QuyenHan.Contains("PersonalTrainer") || 
                  LuuThongTin.QuyenHan.Contains("Huấn Luyện")))
@@ -41,6 +51,7 @@ namespace QuanLyGym.UserControls
                 btnXoa.Visible = false;
                 btnLamMoi.Visible = false;
                 pnlForm.Visible = false;
+                dgvHoiVien.ReadOnly = true;
             }
             // Nếu là nhân viên, vô hiệu hóa nút Sửa và Xóa
             else if (LuuThongTin.QuyenHan != null && 
@@ -57,7 +68,20 @@ namespace QuanLyGym.UserControls
         {
             try
             {
-                List<HoiVien> list = bll.GetAll();
+                List<HoiVien> list;
+
+                // Nếu là hội viên, chỉ lấy dữ liệu của hội viên đó
+                if (LuuThongTin.LoaiNguoiDung == "HoiVien")
+                {
+                    MessageBox.Show($"Debug: MaHV={LuuThongTin.MaHV}, LoaiNguoiDung={LuuThongTin.LoaiNguoiDung}", "Debug");
+                    list = bll.GetAll().Where(h => h.MaHv == LuuThongTin.MaHV).ToList();
+                    MessageBox.Show($"Debug: Tìm được {list.Count} hội viên", "Debug");
+                }
+                else
+                {
+                    list = bll.GetAll();
+                }
+
                 dgvHoiVien.DataSource = list;
 
                 // Format columns
@@ -75,6 +99,9 @@ namespace QuanLyGym.UserControls
                     dgvHoiVien.Columns["LichTapLuyen"].Visible = false;
                     dgvHoiVien.Columns["PhieuChuyenNhuongMaHv1Navigation"].Visible = false;
                     dgvHoiVien.Columns["PhieuChuyenNhuongMaHv2Navigation"].Visible = false;
+
+                    if (dgvHoiVien.Columns.Contains("TaiKhoan"))
+                        dgvHoiVien.Columns["TaiKhoan"].Visible = false;
                 }
             }
             catch (Exception ex)
@@ -219,11 +246,16 @@ namespace QuanLyGym.UserControls
             {
                 DataGridViewRow row = dgvHoiVien.Rows[e.RowIndex];
                 txtMaHV.Text = row.Cells["MaHv"].Value?.ToString() ?? "";
-                txtMaHV.ReadOnly = true;
-                txtTenHV.Text = row.Cells["TenHv"].Value?.ToString() ?? "";
-                cbGioiTinh.SelectedItem = row.Cells["GioiTinh"].Value?.ToString() ?? "";
-                txtSDT.Text = row.Cells["Sdt"].Value?.ToString() ?? "";
-                isEditing = true;
+
+                // Nếu là hội viên, chỉ cho xem không được sửa
+                if (LuuThongTin.LoaiNguoiDung != "HoiVien")
+                {
+                    txtMaHV.ReadOnly = true;
+                    txtTenHV.Text = row.Cells["TenHv"].Value?.ToString() ?? "";
+                    cbGioiTinh.SelectedItem = row.Cells["GioiTinh"].Value?.ToString() ?? "";
+                    txtSDT.Text = row.Cells["Sdt"].Value?.ToString() ?? "";
+                    isEditing = true;
+                }
             }
         }
 

@@ -33,8 +33,23 @@ namespace QuanLyGym.UserControls
 
         private void CheckPermissions()
         {
+            // Nếu là hội viên, chỉ xem
+            if (LuuThongTin.LoaiNguoiDung == "HoiVien")
+            {
+                btnThem.Visible = false;
+                btnSua.Visible = false;
+                btnXoa.Visible = false;
+                btnLamMoi.Visible = false;
+                txtMaHD.Visible = false;
+                txtNoiDung.Visible = false;
+                txtMaKM.Visible = false;
+                cbHoiVien.Visible = false;
+                cbGoiTap.Visible = false;
+                cbNhanVien.Visible = false;
+                dgvHopDong.ReadOnly = true;
+            }
             // Nếu là nhân viên, vô hiệu hóa nút Sửa và Xóa
-            if (LuuThongTin.QuyenHan != null && 
+            else if (LuuThongTin.QuyenHan != null && 
                 (LuuThongTin.QuyenHan.Contains("Nhân Viên") || 
                  LuuThongTin.QuyenHan.Contains("NhanVien") || 
                  LuuThongTin.QuyenHan.ToLower().Contains("staff")))
@@ -65,7 +80,19 @@ namespace QuanLyGym.UserControls
         private void LoadDanhSachHopDong()
         {
             // Đổ dữ liệu Hợp Đồng
-            dgvHopDong.DataSource = hdBLL.GetAll();
+            List<HopDong> list;
+
+            // Nếu là hội viên, chỉ lấy hợp đồng của họ
+            if (LuuThongTin.LoaiNguoiDung == "HoiVien")
+            {
+                list = hdBLL.GetAll().Where(h => h.MaHv == LuuThongTin.MaHV).ToList();
+            }
+            else
+            {
+                list = hdBLL.GetAll();
+            }
+
+            dgvHopDong.DataSource = list;
 
             // Ẩn các cột Navigation không cần thiết
             if (dgvHopDong.Columns.Contains("MaGoiNavigation"))

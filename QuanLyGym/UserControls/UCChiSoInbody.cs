@@ -31,12 +31,14 @@ namespace QuanLyGym.UserControls
 
         private void CheckPermissions()
         {
-            // Nếu là hội viên, chỉ xem được chi số của mình
+            // Nếu là hội viên, chỉ xem
             if (LuuThongTin.LoaiNguoiDung == "HoiVien")
             {
                 btnThem.Visible = false;
                 btnSua.Visible = false;
                 btnXoa.Visible = false;
+                pnlThongTin.Visible = false;
+                dgvChiSo.ReadOnly = true;
             }
         }
 
