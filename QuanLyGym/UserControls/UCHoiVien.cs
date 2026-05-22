@@ -25,6 +25,20 @@ namespace QuanLyGym.UserControls
         private void UCHoiVien_Load(object sender, EventArgs e)
         {
             LoadData();
+            CheckPermissions();
+        }
+
+        private void CheckPermissions()
+        {
+            // Nếu là nhân viên, vô hiệu hóa nút Sửa và Xóa
+            if (LuuThongTin.QuyenHan != null && 
+                (LuuThongTin.QuyenHan.Contains("Nhân Viên") || 
+                 LuuThongTin.QuyenHan.Contains("NhanVien") || 
+                 LuuThongTin.QuyenHan.ToLower().Contains("staff")))
+            {
+                btnSua.Visible = false;
+                btnXoa.Visible = false;
+            }
         }
 
         private void LoadData()
