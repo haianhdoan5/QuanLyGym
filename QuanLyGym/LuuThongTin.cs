@@ -14,3 +14,4 @@ namespace QuanLyGym
         public static string LoaiNguoiDung { get; set; } // "NhanVien" hoặc "HoiVien"
     }
 }
+//
