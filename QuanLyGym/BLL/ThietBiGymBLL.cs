@@ -37,7 +37,6 @@ namespace QuanLyGym.BLL
         {
             try
             {
-                // Kiểm tra trùng mã
                 var check = db.ThietBiGym.Find(thietBi.MaTb);
                 if (check != null) return false;
 
@@ -80,7 +79,7 @@ namespace QuanLyGym.BLL
                 var tb = db.ThietBiGym.Find(maTB);
                 if (tb == null) return false;
 
-                db.ThietBiGym.Remove(tb); // Xóa dòng thật sự
+                db.ThietBiGym.Remove(tb);
                 db.SaveChanges();
                 return true;
             }

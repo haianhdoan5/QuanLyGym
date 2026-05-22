@@ -9,7 +9,6 @@ namespace QuanLyGym.BLL
     {
         private GymDbContext db = new GymDbContext();
 
-        // Lấy mã khuyến mãi tiếp theo (auto-increment)
         public string GetNextMaKm()
         {
             var maxId = db.KhuyenMai.ToList()
@@ -20,7 +19,6 @@ namespace QuanLyGym.BLL
             return "KM" + (maxId + 1).ToString("D2");
         }
 
-        // Lấy danh sách toàn bộ khuyến mãi
         public List<KhuyenMai> GetAll()
         {
             return db.KhuyenMai.ToList();
@@ -31,14 +29,12 @@ namespace QuanLyGym.BLL
         {
             try
             {
-                // Kiểm tra trùng mã khuyến mãi
                 var check = db.KhuyenMai.Find(km.MaKm);
                 if (check != null)
                 {
                     return "Mã khuyến mãi này đã tồn tại!";
                 }
 
-                // Kiểm tra phần trăm giảm hợp lệ (0-100)
                 if (km.PhanTramGiam < 0 || km.PhanTramGiam > 100)
                 {
                     return "Phần trăm giảm phải từ 0 đến 100!";
@@ -65,7 +61,6 @@ namespace QuanLyGym.BLL
                     return "Khuyến mãi không tồn tại!";
                 }
 
-                // Kiểm tra phần trăm giảm hợp lệ (0-100)
                 if (km.PhanTramGiam < 0 || km.PhanTramGiam > 100)
                 {
                     return "Phần trăm giảm phải từ 0 đến 100!";

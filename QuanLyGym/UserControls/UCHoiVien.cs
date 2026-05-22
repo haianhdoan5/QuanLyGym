@@ -75,7 +75,6 @@ namespace QuanLyGym.UserControls
                 List<HoiVien> list = bll.GetAll();
                 dgvHoiVien.DataSource = list;
 
-                // Format columns
                 if (dgvHoiVien.Columns.Count > 0)
                 {
                     dgvHoiVien.Columns["MaHv"].HeaderText = "Mã Hội Viên";
@@ -83,7 +82,6 @@ namespace QuanLyGym.UserControls
                     dgvHoiVien.Columns["GioiTinh"].HeaderText = "Giới Tính";
                     dgvHoiVien.Columns["Sdt"].HeaderText = "Số Điện Thoại";
 
-                    // Hide navigation properties
                     dgvHoiVien.Columns["ChamSocHoiVien"].Visible = false;
                     dgvHoiVien.Columns["ChiSoInbody"].Visible = false;
                     dgvHoiVien.Columns["HopDong"].Visible = false;
@@ -117,7 +115,6 @@ namespace QuanLyGym.UserControls
 
             try
             {
-                // 1. Tự động sinh mã HV
                 string maHVMoi = bll.GetNextMaHV();
 
                 HoiVien hv = new HoiVien
@@ -130,12 +127,11 @@ namespace QuanLyGym.UserControls
 
                 if (bll.Insert(hv))
                 {
-                    // 2. Tự động tạo Tài khoản đăng nhập cho Hội viên
                     TaiKhoan tkMoi = new TaiKhoan
                     {
                         TenDangNhap = maHVMoi,
                         MatKhau = "1",
-                        QuyenHan = "Hội Viên", // Cứng quyền hội viên
+                        QuyenHan = "Hội Viên", 
                         TrangThai = true,
                         MaNv = null,
                         MaHv = maHVMoi
@@ -248,7 +244,6 @@ namespace QuanLyGym.UserControls
                 DataGridViewRow row = dgvHoiVien.Rows[e.RowIndex];
                 txtMaHV.Text = row.Cells["MaHv"].Value?.ToString() ?? "";
 
-                // Chỉ cho Admin sửa
                 if (LuuThongTin.QuyenHan == "Admin")
                 {
                     txtMaHV.ReadOnly = true;

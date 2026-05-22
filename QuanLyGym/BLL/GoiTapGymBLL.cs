@@ -9,7 +9,6 @@ namespace QuanLyGym.BLL
     {
         private GymDbContext db = new GymDbContext();
 
-        // Lấy danh sách toàn bộ gói tập
         public List<GoiTapGym> GetAllGoiTap()
         {
             return db.GoiTapGym.ToList();
@@ -20,7 +19,6 @@ namespace QuanLyGym.BLL
         {
             try
             {
-                // Kiểm tra trùng mã gói
                 var check = db.GoiTapGym.Find(goiTap.MaGoi);
                 if (check != null) return false;
 
@@ -45,7 +43,7 @@ namespace QuanLyGym.BLL
                 gtUpdate.TenGoi = goiTap.TenGoi;
                 gtUpdate.DonGia = goiTap.DonGia;
                 gtUpdate.ThoiHan = goiTap.ThoiHan;
-                gtUpdate.MaKm = goiTap.MaKm; // Có thể null nếu không áp dụng khuyến mãi
+                gtUpdate.MaKm = goiTap.MaKm;
 
                 db.SaveChanges();
                 return true;

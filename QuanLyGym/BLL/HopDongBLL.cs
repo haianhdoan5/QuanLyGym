@@ -8,34 +8,28 @@ namespace QuanLyGym.BLL
 {
     public class HopDongBLL
     {
-        // 1. Lấy toàn bộ danh sách Hợp Đồng
-        public List<HopDong> GetAll()
+       public List<HopDong> GetAll()
         {
-            using (var context = new GymDbContext()) // Tên DbContext của bạn có thể là GymDbContext
+            using (var context = new GymDbContext()) 
             {
-                // Trả về toàn bộ danh sách hợp đồng
-                return context.HopDong.ToList();
+               return context.HopDong.ToList();
             }
         }
 
-        // 2. Thêm mới Hợp Đồng
+        // Thêm mới Hợp Đồng
         public string Insert(HopDong hd)
         {
             using (var context = new GymDbContext())
             {
                 try
                 {
-                    // Kiểm tra trùng mã Hợp đồng (nếu MaHD của bạn là tự nhập)
                     var kiemTra = context.HopDong.Find(hd.MaHd);
                     if (kiemTra != null)
                     {
                         return "Mã hợp đồng này đã tồn tại!";
                     }
 
-                    // Thêm vào DbSet
                     context.HopDong.Add(hd);
-
-                    // Lưu xuống Database
                     context.SaveChanges();
 
                     return "Success";
@@ -47,28 +41,23 @@ namespace QuanLyGym.BLL
             }
         }
 
-        // 3. Cập nhật Hợp Đồng
+        //Cập nhật Hợp Đồng
         public string Update(HopDong hdSua)
         {
             using (var context = new GymDbContext())
             {
                 try
                 {
-                    // Tìm hợp đồng cũ trong Database
                     var hdCu = context.HopDong.Find(hdSua.MaHd);
                     if (hdCu == null)
                     {
                         return "Không tìm thấy hợp đồng để cập nhật!";
                     }
 
-                    // Gán các giá trị mới từ UI vào Hợp đồng cũ
                     hdCu.NoiDung = hdSua.NoiDung;
                     hdCu.MaHv = hdSua.MaHv;
                     hdCu.MaGoi = hdSua.MaGoi;
                     hdCu.MaNv = hdSua.MaNv;
-                    // hdCu.MaKM = hdSua.MaKM;
-
-                    // Lưu thay đổi
                     context.SaveChanges();
 
                     return "Success";
@@ -80,8 +69,8 @@ namespace QuanLyGym.BLL
             }
         }
 
-        // 4. Xóa Hợp Đồng
-        public string Delete(string maHD) // Đổi kiểu dữ liệu của maHD thành int nếu ID hợp đồng của bạn là số
+        // Xóa Hợp Đồng
+        public string Delete(string maHD)
         {
             using (var context = new GymDbContext())
             {
@@ -93,13 +82,8 @@ namespace QuanLyGym.BLL
                         return "Hợp đồng không tồn tại!";
                     }
 
-                    // Xóa vật lý khỏi Database
                     context.HopDong.Remove(hd);
                     context.SaveChanges();
-
-                    // *Lưu ý: Nếu muốn xóa mềm (chỉ đổi trạng thái), dùng code sau thay cho Remove:
-                    // hd.TrangThai = false;
-                    // context.SaveChanges();
 
                     return "Success";
                 }
@@ -110,19 +94,17 @@ namespace QuanLyGym.BLL
             }
         }
 
-        // 5. Auto-generate next Mã Hợp Đồng
+        // Mã Hợp Đồng tự tăng
         public string GetNextMaHD()
         {
             using (var context = new GymDbContext())
             {
-                // Lấy tất cả mã HD, cắt bỏ chữ "HD", ép sang kiểu số, tìm số lớn nhất
                 var maxId = context.HopDong.ToList()
                     .Where(h => h.MaHd.StartsWith("HD"))
                     .Select(h => int.Parse(h.MaHd.Substring(2)))
                     .DefaultIfEmpty(0)
                     .Max();
 
-                // Cộng 1 và format lại thành dạng HD01, HD02...
                 return "HD" + (maxId + 1).ToString("D2");
             }
         }

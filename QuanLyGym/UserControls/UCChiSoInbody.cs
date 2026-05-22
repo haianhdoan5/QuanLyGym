@@ -61,7 +61,6 @@ namespace QuanLyGym.UserControls
 
                 dgvChiSo.DataSource = list;
 
-                // Format columns
                 if (dgvChiSo.Columns.Count > 0)
                 {
                     dgvChiSo.Columns["MaInbody"].HeaderText = "Mã InBody";
@@ -71,7 +70,6 @@ namespace QuanLyGym.UserControls
                     dgvChiSo.Columns["TyLeMo"].HeaderText = "Tỷ Lệ Mỡ (%)";
                     dgvChiSo.Columns["MaHv"].HeaderText = "Mã HV";
 
-                    // Hide navigation properties
                     if (dgvChiSo.Columns.Contains("MaHvNavigation"))
                         dgvChiSo.Columns["MaHvNavigation"].Visible = false;
                 }

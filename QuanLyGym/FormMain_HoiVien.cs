@@ -46,7 +46,6 @@ namespace QuanLyGym
 
         private void btnThongTinCaNhan_Click(object sender, EventArgs e)
         {
-            // Hiển thị thông tin cá nhân của hội viên
             MessageBox.Show($"Mã Hội Viên: {LuuThongTin.MaHV}\n\nTài khoản: {LuuThongTin.LoaiNguoiDung}", "Thông Tin Cá Nhân");
         }
 

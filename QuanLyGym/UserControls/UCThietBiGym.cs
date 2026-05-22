@@ -30,7 +30,6 @@ namespace QuanLyGym.UserControls
 
         private void CheckPermissions()
         {
-            // Nếu là nhân viên, vô hiệu hóa nút Sửa và Xóa
             if (LuuThongTin.QuyenHan != null && 
                 (LuuThongTin.QuyenHan.Contains("Nhân Viên") || 
                  LuuThongTin.QuyenHan.Contains("NhanVien") || 
@@ -48,7 +47,6 @@ namespace QuanLyGym.UserControls
                 List<ThietBiGym> list = bll.GetAllThietBi();
                 dgvThietBi.DataSource = list;
 
-                // Format columns
                 if (dgvThietBi.Columns.Count > 0)
                 {
                     dgvThietBi.Columns["MaTb"].HeaderText = "Mã Thiết Bị";
@@ -57,7 +55,6 @@ namespace QuanLyGym.UserControls
                     dgvThietBi.Columns["NgayMua"].HeaderText = "Ngày Mua";
                     dgvThietBi.Columns["TinhTrang"].HeaderText = "Tình Trạng";
 
-                    // Hide navigation properties if any
                     if (dgvThietBi.Columns.Contains("BaoCaoHongHoc"))
                         dgvThietBi.Columns["BaoCaoHongHoc"].Visible = false;
                     if (dgvThietBi.Columns.Contains("LichBaoTri"))
@@ -72,14 +69,13 @@ namespace QuanLyGym.UserControls
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            // Đã bỏ check txtMaTB vì sinh tự động
             if (string.IsNullOrWhiteSpace(txtTenTB.Text))
             {
                 MessageBox.Show("Vui lòng nhập tên thiết bị");
                 return;
             }
 
-            if (cboLoaiThietBi.SelectedIndex == -1) // Đổi từ txtLoaiTB sang cboLoaiThietBi
+            if (cboLoaiThietBi.SelectedIndex == -1)
             {
                 MessageBox.Show("Vui lòng chọn loại thiết bị (Máy/Tạ)");
                 return;
@@ -93,14 +89,13 @@ namespace QuanLyGym.UserControls
 
             try
             {
-                // Gọi hàm tự sinh mã từ BLL
                 string maTBMoi = bll.GetNextMaTb();
 
                 ThietBiGym thietBi = new ThietBiGym
                 {
-                    MaTb = maTBMoi, // Dùng mã mới sinh
+                    MaTb = maTBMoi,
                     TenTb = txtTenTB.Text,
-                    LoaiThietBi = cboLoaiThietBi.SelectedItem.ToString(), // Lấy từ ComboBox
+                    LoaiThietBi = cboLoaiThietBi.SelectedItem.ToString(), 
                     NgayMua = dtpNgayMua.Value,
                     TinhTrang = cboTinhTrang.SelectedItem.ToString()
                 };
@@ -136,7 +131,7 @@ namespace QuanLyGym.UserControls
                 return;
             }
 
-            if (cboLoaiThietBi.SelectedIndex == -1) // Đổi từ txtLoaiTB
+            if (cboLoaiThietBi.SelectedIndex == -1) 
             {
                 MessageBox.Show("Vui lòng chọn loại thiết bị");
                 return;
@@ -154,7 +149,7 @@ namespace QuanLyGym.UserControls
                 {
                     MaTb = txtMaTB.Text,
                     TenTb = txtTenTB.Text,
-                    LoaiThietBi = cboLoaiThietBi.SelectedItem.ToString(), // Lấy từ ComboBox
+                    LoaiThietBi = cboLoaiThietBi.SelectedItem.ToString(), 
                     NgayMua = dtpNgayMua.Value,
                     TinhTrang = cboTinhTrang.SelectedItem.ToString()
                 };
@@ -219,8 +214,6 @@ namespace QuanLyGym.UserControls
                 DataGridViewRow row = dgvThietBi.Rows[e.RowIndex];
                 txtMaTB.Text = row.Cells["MaTb"].Value?.ToString() ?? "";
                 txtTenTB.Text = row.Cells["TenTb"].Value?.ToString() ?? "";
-
-                // Đẩy loại thiết bị lên ComboBox
                 cboLoaiThietBi.SelectedItem = row.Cells["LoaiThietBi"].Value?.ToString() ?? "";
 
                 if (row.Cells["NgayMua"].Value != null && row.Cells["NgayMua"].Value != DBNull.Value)
@@ -238,7 +231,7 @@ namespace QuanLyGym.UserControls
             txtTenTB.Text = "";
             dtpNgayMua.Value = DateTime.Now;
             cboTinhTrang.SelectedIndex = -1;
-            cboLoaiThietBi.SelectedIndex = -1; // Reset lại ComboBox Loại
+            cboLoaiThietBi.SelectedIndex = -1;
             isEditing = false;
         }
 

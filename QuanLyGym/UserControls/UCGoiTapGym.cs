@@ -52,7 +52,6 @@ namespace QuanLyGym.UserControls
                 List<GoiTapGym> list = bll.GetAllGoiTap();
                 dgvGoiTap.DataSource = list;
 
-                // Format columns
                 if (dgvGoiTap.Columns.Count > 0)
                 {
                     dgvGoiTap.Columns["MaGoi"].HeaderText = "Mã Gói Tập";
@@ -61,7 +60,6 @@ namespace QuanLyGym.UserControls
                     dgvGoiTap.Columns["ThoiHan"].HeaderText = "Thời Hạn (ngày)";
                     dgvGoiTap.Columns["MaKm"].HeaderText = "Mã Khuyến Mãi";
 
-                    // Hide navigation properties if any
                     if (dgvGoiTap.Columns.Contains("MaKmNavigation"))
                         dgvGoiTap.Columns["MaKmNavigation"].Visible = false;
                     if (dgvGoiTap.Columns.Contains("HopDong"))
@@ -253,7 +251,6 @@ namespace QuanLyGym.UserControls
                 txtDonGia.Text = row.Cells["DonGia"].Value?.ToString() ?? "";
                 txtThoiHan.Text = row.Cells["ThoiHan"].Value?.ToString() ?? "";
 
-                // Set ComboBox SelectedValue từ MaKm
                 object maKmValue = row.Cells["MaKm"].Value;
                 if (maKmValue != null && !string.IsNullOrEmpty(maKmValue.ToString()))
                 {

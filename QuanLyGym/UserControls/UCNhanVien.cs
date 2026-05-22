@@ -34,7 +34,6 @@ namespace QuanLyGym.UserControls
                 List<NhanVien> list = bll.GetNhanVien();
                 dgvNhanVien.DataSource = list;
 
-                // Format columns
                 if (dgvNhanVien.Columns.Count > 0)
                 {
                     dgvNhanVien.Columns["MaNv"].HeaderText = "Mã Nhân Viên";
@@ -42,7 +41,6 @@ namespace QuanLyGym.UserControls
                     dgvNhanVien.Columns["Sdt"].HeaderText = "Số Điện Thoại";
                     dgvNhanVien.Columns["ChucVu"].HeaderText = "Chức Vụ";
 
-                    // Hide navigation properties
                     if (dgvNhanVien.Columns.Contains("BaoCaoHongHoc"))
                         dgvNhanVien.Columns["BaoCaoHongHoc"].Visible = false;
                     if (dgvNhanVien.Columns.Contains("ChamSocHoiVien"))
@@ -87,12 +85,11 @@ namespace QuanLyGym.UserControls
 
             try
             {
-                // 1. Lấy mã nhân viên tự động
                 string maNVMoi = bll.GetNextMaNV();
 
                 NhanVien nv = new NhanVien
                 {
-                    MaNv = maNVMoi, // Dùng mã tự động thay vì txtMaNV.Text
+                    MaNv = maNVMoi,
                     TenNv = txtTenNV.Text,
                     Sdt = txtSDT.Text,
                     ChucVu = cbChucVu.SelectedItem.ToString()
@@ -101,21 +98,18 @@ namespace QuanLyGym.UserControls
                 bool result = bll.AddNhanVien(nv);
                 if (result)
                 {
-                    // 2. Tự động tạo Tài khoản đăng nhập
-                    TaiKhoanBLL tkBll = new TaiKhoanBLL(); // Đảm bảo bạn đã using QuanLyGym.BLL;
+                    // Tự động tạo Tài khoản đăng nhập
+                    TaiKhoanBLL tkBll = new TaiKhoanBLL();
                     TaiKhoan tkMoi = new TaiKhoan
                     {
                         TenDangNhap = maNVMoi,
                         MatKhau = "1",
-                        QuyenHan = cbChucVu.SelectedItem.ToString(), // Lấy chức vụ làm quyền hạn (Admin, Lễ Tân, PT...)
+                        QuyenHan = cbChucVu.SelectedItem.ToString(), 
                         TrangThai = true,
                         MaNv = maNVMoi,
                         MaHv = null
                     };
 
-                    // Gọi hàm Add (hoặc Insert) trong TaiKhoanBLL của bạn
-                    // Ví dụ: tkBll.Add(tkMoi); 
-                    // Dùng context lưu trực tiếp nếu TaiKhoanBLL chưa viết kịp:
                     using (var db = new GymDbContext()) { db.TaiKhoan.Add(tkMoi); db.SaveChanges(); }
 
                     MessageBox.Show($"Thêm thành công!\nTài khoản: {maNVMoi}\nMật khẩu: 1", "Tạo tự động");

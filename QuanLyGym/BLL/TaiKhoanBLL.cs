@@ -79,7 +79,6 @@ namespace QuanLyGym.BLL
 
         public TaiKhoan KiemTraDangNhap(string tenDangNhap, string matKhau)
         {
-            // LINQ tự động sinh câu lệnh SQL an toàn chống SQL Injection
             return db.TaiKhoan.FirstOrDefault(tk =>
                 tk.TenDangNhap == tenDangNhap &&
                 tk.MatKhau == matKhau &&
@@ -88,7 +87,6 @@ namespace QuanLyGym.BLL
 
         public TaiKhoan KiemTraDangNhapHoiVien(string tenDangNhap, string matKhau)
         {
-            // Kiểm tra đăng nhập cho hội viên - phải có MaHv
             return db.TaiKhoan.FirstOrDefault(tk =>
                 tk.TenDangNhap == tenDangNhap &&
                 tk.MatKhau == matKhau &&

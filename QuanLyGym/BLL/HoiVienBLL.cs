@@ -9,7 +9,6 @@ namespace QuanLyGym.BLL
     {
         private GymDbContext db = new GymDbContext();
 
-        // Lấy tất cả
         public List<HoiVien> GetAll()
         {
             using (var context = new GymDbContext())

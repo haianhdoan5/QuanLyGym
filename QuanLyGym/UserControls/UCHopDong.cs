@@ -87,7 +87,6 @@ namespace QuanLyGym.UserControls
             // Đổ dữ liệu Hợp Đồng
             List<HopDong> list;
 
-            // Nếu là hội viên, chỉ lấy hợp đồng của họ
             if (LuuThongTin.QuyenHan == "HoiVien")
             {
                 list = hdBLL.GetAll().Where(h => h.MaHv == LuuThongTin.MaHV).ToList();
@@ -99,7 +98,6 @@ namespace QuanLyGym.UserControls
 
             dgvHopDong.DataSource = list;
 
-            // Ẩn các cột Navigation không cần thiết
             if (dgvHopDong.Columns.Contains("MaGoiNavigation"))
                 dgvHopDong.Columns["MaGoiNavigation"].Visible = false;
             if (dgvHopDong.Columns.Contains("MaHvNavigation"))
@@ -133,21 +131,18 @@ namespace QuanLyGym.UserControls
                 return;
             }
 
-            // Gom thông tin từ giao diện vào Model
             HopDong hd = new HopDong();
             hd.MaHd = txtMaHD.Text.Trim();
             hd.NoiDung = txtNoiDung.Text.Trim();
             hd.MaHv = cbHoiVien.SelectedValue?.ToString();
             hd.MaGoi = cbGoiTap.SelectedValue?.ToString();
             hd.MaNv = cbNhanVien.SelectedValue?.ToString();
-            // hd.MaKM = txtMaKM.Text;
-
-            // Gọi tầng BLL để xử lý cập nhật
+            
             string ketQua = hdBLL.Update(hd);
             if (ketQua == "Success")
             {
                 MessageBox.Show("Cập nhật hợp đồng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadDanhSachHopDong(); // Tải lại lưới dữ liệu
+                LoadDanhSachHopDong(); 
             }
             else
             {
@@ -162,9 +157,7 @@ namespace QuanLyGym.UserControls
             txtMaKM.Clear();
             cbHoiVien.SelectedIndex = -1;
             cbGoiTap.SelectedIndex = -1;
-            // cbNhanVien.SelectedIndex = -1;
-
-            txtMaHD.ReadOnly = false; // Mở khóa cho phép nhập mã mới khi thêm mới
+            txtMaHD.ReadOnly = false; 
             txtMaHD.Focus();
         }
 
@@ -176,7 +169,6 @@ namespace QuanLyGym.UserControls
                 return;
             }
 
-            // Hiện bảng hỏi xác nhận trước khi xóa dữ liệu quan trọng
             if (MessageBox.Show("Bạn có chắc chắn muốn xóa hợp đồng này không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 string ketQua = hdBLL.Delete(txtMaHD.Text);
@@ -184,7 +176,7 @@ namespace QuanLyGym.UserControls
                 {
                     MessageBox.Show("Xóa hợp đồng thành công!", "Thông báo");
                     LoadDanhSachHopDong();
-                    btnLamMoi_Click(sender, e); // Xóa trắng form sau khi xóa dữ liệu thành công
+                    btnLamMoi_Click(sender, e);
                 }
                 else
                 {
@@ -195,7 +187,6 @@ namespace QuanLyGym.UserControls
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            // Validation: Kiểm tra các trường bắt buộc (không cần kiểm tra MaHD vì nó tự động sinh)
             if (cbHoiVien.SelectedIndex == -1)
             {
                 MessageBox.Show("Vui lòng chọn hội viên!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -212,20 +203,20 @@ namespace QuanLyGym.UserControls
 
             HopDong hd = new HopDong();
 
-            // 1. Auto-generate Mã Hợp Đồng
+            // Mã Hợp Đồng tự tăng
             string maHDMoi = hdBLL.GetNextMaHD();
             hd.MaHd = maHDMoi;
 
-            // 2. Các trường dữ liệu từ Giao diện
+            // Các trường dữ liệu từ Giao diện
             hd.NoiDung = txtNoiDung.Text.Trim();
             hd.MaHv = cbHoiVien.SelectedValue?.ToString();
             hd.MaGoi = cbGoiTap.SelectedValue?.ToString();
             hd.MaNv = cbNhanVien.SelectedValue?.ToString();
 
-            // 3. Các trường hệ thống tự sinh
+            // Các trường hệ thống tự sinh
             hd.NgayLap = DateTime.Now;
 
-            // 4. Các trường chưa có trên Giao diện
+            // Các trường chưa có trên Giao diện
             hd.MaHoaDon = null;
 
             // Gọi BLL thêm dữ liệu
@@ -244,12 +235,9 @@ namespace QuanLyGym.UserControls
 
         private void cbNhanVien_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Lấy MaNv từ ComboBox khi chọn nhân viên
             if (cbNhanVien.SelectedValue != null)
             {
                 string maNv = cbNhanVien.SelectedValue.ToString();
-                // Bạn có thể sử dụng maNv cho các xử lý khác tại đây nếu cần
-                // Ví dụ: MessageBox.Show("Nhân viên được chọn: " + maNv);
             }
         }
 
@@ -275,21 +263,18 @@ namespace QuanLyGym.UserControls
 
         private void dgvHopDong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // Kiểm tra người dùng click đúng dòng có dữ liệu
+            if (e.RowIndex >= 0) 
             {
                 DataGridViewRow row = dgvHopDong.Rows[e.RowIndex];
 
-                // Đẩy dữ liệu vào TextBox (Chú ý: Đổi tên cột trong ngoặc kép cho khớp với Model Entity Framework)
-                txtMaHD.Text = row.Cells["MaHD"].Value?.ToString(); // Thường EF Core tự sinh tên cột là MaHD
+                txtMaHD.Text = row.Cells["MaHD"].Value?.ToString();
                 txtNoiDung.Text = row.Cells["NoiDung"].Value?.ToString();
 
-                // Cần kiểm tra xem có lấy được MaKM trên lưới không
                 if (dgvHopDong.Columns.Contains("MaKM"))
                 {
                     txtMaKM.Text = row.Cells["MaKM"].Value?.ToString();
                 }
 
-                // Gán giá trị vào ComboBox (Sử dụng ID/Mã thay vì gán Text để tránh lỗi cập nhật)
                 if (row.Cells["MaHV"].Value != null)
                     cbHoiVien.SelectedValue = row.Cells["MaHV"].Value.ToString();
 
@@ -298,7 +283,6 @@ namespace QuanLyGym.UserControls
                 if (row.Cells["MaNV"].Value != null)
                     cbNhanVien.SelectedValue = row.Cells["MaNV"].Value.ToString();
 
-                // Khóa không cho sửa Mã Hợp Đồng
                 txtMaHD.ReadOnly = true;
             }
         }

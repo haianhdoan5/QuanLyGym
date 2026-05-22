@@ -61,7 +61,6 @@ namespace QuanLyGym.UserControls
 
                 dgvLichTap.DataSource = list;
 
-                // Format columns
                 if (dgvLichTap.Columns.Count > 0)
                 {
                     dgvLichTap.Columns["MaLt"].HeaderText = "Mã Lịch";
@@ -71,7 +70,6 @@ namespace QuanLyGym.UserControls
                     dgvLichTap.Columns["MaHv"].HeaderText = "Mã HV";
                     dgvLichTap.Columns["MaNv"].HeaderText = "Mã NV";
 
-                    // Hide navigation properties
                     if (dgvLichTap.Columns.Contains("MaHvNavigation"))
                         dgvLichTap.Columns["MaHvNavigation"].Visible = false;
                     if (dgvLichTap.Columns.Contains("MaNvNavigation"))
@@ -131,7 +129,7 @@ namespace QuanLyGym.UserControls
         {
             if (!isEditing)
             {
-                // TRƯỜNG HỢP 1: BẤM "SỬA" ĐỂ ĐỔ DỮ LIỆU LÊN FORM
+                //BẤM "SỬA" ĐỂ ĐỔ DỮ LIỆU LÊN FORM
                 if (dgvLichTap.SelectedRows.Count == 0)
                 {
                     MessageBox.Show("Vui lòng chọn một lịch tập để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -147,19 +145,16 @@ namespace QuanLyGym.UserControls
                     txtMaLichTap.Text = lichTap.MaLt;
                     dtpNgayTap.Value = lichTap.NgayTap ?? DateTime.Now;
 
-                    // Hiển thị định dạng hh:mm cho gọn và dễ nhìn
                     txtGioTap.Text = lichTap.GioTap?.ToString(@"hh\:mm") ?? "00:00";
 
-                    // Tìm và chọn đúng Item trong ComboBox
                     cbTrangThai.Text = lichTap.TrangThai;
-
                     txtMaHV.Text = lichTap.MaHv;
                     txtMaNV.Text = lichTap.MaNv;
 
                     // Chuyển trạng thái giao diện sang chế độ đang chỉnh sửa
                     isEditing = true;
                     btnSua.Text = "Lưu Sửa";
-                    txtMaLichTap.ReadOnly = true; // Khóa khóa chính không cho sửa
+                    txtMaLichTap.ReadOnly = true;
                 }
             }
             else
@@ -176,7 +171,6 @@ namespace QuanLyGym.UserControls
 
                     lichTap.NgayTap = dtpNgayTap.Value;
 
-                    // XỬ LÝ ĐỒNG BỘ GIỜ TẬP THÔNG MINH:
                     string inputGio = txtGioTap.Text.Trim();
                     // Nhập mỗi số "3", tự động biến đổi thành "3:00" để Parse không lỗi
                     if (int.TryParse(inputGio, out int hourOnly))
@@ -197,14 +191,12 @@ namespace QuanLyGym.UserControls
                     lichTap.MaHv = txtMaHV.Text.Trim();
                     lichTap.MaNv = txtMaNV.Text.Trim();
 
-                    // Gọi xuống tầng BLL để cập nhật
                     if (bll.Update(lichTap))
                     {
                         MessageBox.Show("Cập nhật lịch tập thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadData();
                         ClearForm();
 
-                        // Trả giao diện về trạng thái ban đầu
                         isEditing = false;
                         btnSua.Text = "Sửa";
                         txtMaLichTap.ReadOnly = false;

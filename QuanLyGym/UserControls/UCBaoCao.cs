@@ -47,7 +47,6 @@ namespace QuanLyGym.UserControls
         {
             try
             {
-                // Hide Admin components
                 dgvBaoCao.Visible = false;
                 lblDoanhThu.Visible = false;
                 lblTongHoiVien.Visible = false;
@@ -56,7 +55,6 @@ namespace QuanLyGym.UserControls
                 pnlDashboard.Visible = false;
                 pnlAdminButtons.Visible = false;
 
-                // Show Employee components - CHỈ GỬI BÁO CÁO
                 pnlNhapBaoCao.Visible = true;
                 txtNoiDungBaoCao.Visible = true;
                 cbThietBi.Visible = true;
@@ -66,7 +64,7 @@ namespace QuanLyGym.UserControls
                 txtDonViThucHien.Visible = true;
                 lblDonVi.Visible = true;
 
-                // Load equipment combobox
+                // Load combobox
                 List<ThietBiGym> danhSachThietBi = baoCaoBLL.LayDanhSachThietBi();
                 cbThietBi.DataSource = danhSachThietBi;
                 cbThietBi.DisplayMember = "TenTb";
@@ -82,7 +80,6 @@ namespace QuanLyGym.UserControls
         {
             try
             {
-                // Show Admin components - FULL QUYỀN (VIEW, EDIT, DELETE)
                 dgvBaoCao.Visible = true;
                 lblDoanhThu.Visible = true;
                 lblTongHoiVien.Visible = true;
@@ -91,10 +88,8 @@ namespace QuanLyGym.UserControls
                 pnlDashboard.Visible = true;
                 pnlAdminButtons.Visible = true;
 
-                // Hide Employee components
                 pnlNhapBaoCao.Visible = false;
 
-                // Set DataGridView editable for Admin
                 dgvBaoCao.ReadOnly = false;
                 dgvBaoCao.AllowUserToAddRows = false;
                 dgvBaoCao.AllowUserToDeleteRows = false;
@@ -116,15 +111,12 @@ namespace QuanLyGym.UserControls
                 int thang = DateTime.Now.Month;
                 int nam = DateTime.Now.Year;
 
-                // Total Members
                 int tongHoiVien = baoCaoBLL.DemTongHoiVien();
                 lblTongHoiVien.Text = $"Tổng Hội Viên: {tongHoiVien}";
 
-                // Monthly Revenue
                 decimal doanhThuThang = baoCaoBLL.TinhDoanhThuThang(thang, nam);
                 lblDoanhThu.Text = $"Doanh Thu Tháng {thang}: {doanhThuThang:N0} HĐ";
 
-                // Monthly Reports Count
                 int soBaoCao = baoCaoBLL.DemBaoCaoThang(thang, nam);
                 lblSoBaoCao.Text = $"Báo Cáo Tháng {thang}: {soBaoCao}";
             }
@@ -142,7 +134,6 @@ namespace QuanLyGym.UserControls
                 dgvBaoCao.DataSource = danhSachBaoCao;
                 dgvBaoCao.AutoResizeColumns();
 
-                // Rename columns
                 if (dgvBaoCao.Columns.Contains("MaNv"))
                     dgvBaoCao.Columns["MaNv"].HeaderText = "Mã Nhân Viên";
                 if (dgvBaoCao.Columns.Contains("MaTb"))
@@ -154,7 +145,6 @@ namespace QuanLyGym.UserControls
                 if (dgvBaoCao.Columns.Contains("DonViThucHien"))
                     dgvBaoCao.Columns["DonViThucHien"].HeaderText = "Đơn Vị Thực Hiện";
 
-                // Hide navigation columns
                 if (dgvBaoCao.Columns.Contains("MaNvNavigation"))
                     dgvBaoCao.Columns["MaNvNavigation"].Visible = false;
                 if (dgvBaoCao.Columns.Contains("MaTbNavigation"))
@@ -242,7 +232,6 @@ namespace QuanLyGym.UserControls
             }
         }
 
-        // Event handlers for submit button
         public void BtnNopBaoCao_Click(object sender, EventArgs e)
         {
             SubmitReport();
@@ -284,7 +273,6 @@ namespace QuanLyGym.UserControls
 
             try
             {
-                // Tạo form để sửa báo cáo
                 using (Form editForm = new Form())
                 {
                     editForm.Text = "Sửa Báo Cáo Hư Hỏng";

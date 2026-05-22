@@ -10,7 +10,7 @@ namespace QuanLyGym.BLL
     public class NhanVienBLL
     {
         private GymDbContext db = new GymDbContext();
-        // 1. Lấy danh sách Nhân Viên
+        // Lấy danh sách Nhân Viên
         public List<NhanVien> GetNhanVien()
         {
             using (var context = new GymDbContext())
@@ -20,7 +20,7 @@ namespace QuanLyGym.BLL
         }
 
         public NhanVien GetById(string maNV) => db.NhanVien.FirstOrDefault(n => n.MaNv == maNV);
-        // 2. Thêm Nhân Viên
+        // Thêm Nhân Viên
         public bool AddNhanVien(NhanVien nv)
         {
             try
@@ -38,7 +38,7 @@ namespace QuanLyGym.BLL
             }
         }
 
-        // 3. Cập nhật Nhân Viên
+        // Cập nhật Nhân Viên
         public string Update(NhanVien nvSua)
         {
             using (var context = new GymDbContext())
@@ -48,7 +48,6 @@ namespace QuanLyGym.BLL
                     var nvCu = context.NhanVien.Find(nvSua.MaNv);
                     if (nvCu == null) return "Không tìm thấy nhân viên để cập nhật!";
 
-                    // Cập nhật 3 trường (Không có giới tính)
                     nvCu.TenNv = nvSua.TenNv;
                     nvCu.Sdt = nvSua.Sdt;
                     nvCu.ChucVu = nvSua.ChucVu;
@@ -63,7 +62,7 @@ namespace QuanLyGym.BLL
             }
         }
 
-        // 4. Xóa Nhân Viên
+        // Xóa Nhân Viên
         public string Delete(string maNV)
         {
             using (var context = new GymDbContext())
@@ -92,14 +91,12 @@ namespace QuanLyGym.BLL
         {
             using (var context = new GymDbContext())
             {
-                // Lấy tất cả mã NV, cắt bỏ chữ "NV", ép sang kiểu số, tìm số lớn nhất
                 var maxId = context.NhanVien.ToList()
                     .Where(n => n.MaNv.StartsWith("NV"))
                     .Select(n => int.Parse(n.MaNv.Substring(2)))
                     .DefaultIfEmpty(0)
                     .Max();
 
-                // Cộng 1 và format lại thành dạng NV01, NV02...
                 return "NV" + (maxId + 1).ToString("D2");
             }
         }
