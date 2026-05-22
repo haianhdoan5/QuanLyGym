@@ -49,6 +49,9 @@ namespace QuanLyGym.UserControls
                 // Ẩn combo mã nhân viên, hiển thị combo hội viên
                 cboMaNV.Visible = false;
                 cboMaHV.Visible = true;
+
+                // Ẩn nút xóa đối với nhân viên
+                btnXoa.Visible = false;
             }
             else if (LuuThongTin.QuyenHan == "Admin")
             {
@@ -64,6 +67,9 @@ namespace QuanLyGym.UserControls
                 // Hiển thị cả hai combo, xử lý thay đổi
                 UpdateComboVisibility();
                 cboQuyenHan.SelectedIndexChanged += CboQuyenHan_SelectedIndexChanged;
+
+                // Hiển thị nút xóa cho Admin
+                btnXoa.Visible = true;
             }
         }
 
@@ -201,7 +207,65 @@ namespace QuanLyGym.UserControls
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-           
+            try
+            {
+                // Kiểm tra xem có dòng nào được chọn trong DataGridView không
+                if (dgvTaiKhoan.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn tài khoản để xóa");
+                    return;
+                }
+
+                // Lấy thông tin tài khoản được chọn
+                DataGridViewRow selectedRow = dgvTaiKhoan.SelectedRows[0];
+                string tenDangNhap = selectedRow.Cells["TenDangNhap"].Value?.ToString();
+                string quyenHan = selectedRow.Cells["QuyenHan"].Value?.ToString();
+
+                if (string.IsNullOrWhiteSpace(tenDangNhap))
+                {
+                    MessageBox.Show("Không thể xác định tài khoản cần xóa");
+                    return;
+                }
+
+                // Kiểm tra: Không được xóa chính mình
+                if (tenDangNhap == LuuThongTin.MaNV)
+                {
+                    MessageBox.Show("Không thể xóa tài khoản của chính bạn");
+                    return;
+                }
+
+                // Kiểm tra: Admin không được xóa Admin khác cùng level
+                if (LuuThongTin.QuyenHan == "Admin" && quyenHan == "Admin")
+                {
+                    MessageBox.Show("Admin không thể xóa tài khoản Admin khác");
+                    return;
+                }
+               
+                // Xác nhận xóa
+                DialogResult result = MessageBox.Show(
+                    $"Bạn có chắc chắn muốn xóa tài khoản '{tenDangNhap}'?",
+                    "Xác nhận xóa tài khoản",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    if (bll.Delete(tenDangNhap))
+                    {
+                        MessageBox.Show("Xóa tài khoản thành công!");
+                        ClearForm();
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa tài khoản thất bại");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xóa tài khoản: " + ex.Message);
+            }
         }
     }
 }

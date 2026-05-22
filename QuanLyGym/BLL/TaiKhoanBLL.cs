@@ -1,4 +1,4 @@
-﻿using QuanLyGym.Models;
+using QuanLyGym.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +16,11 @@ namespace QuanLyGym.BLL
             }
         }
 
+        public TaiKhoan GetByUsername(string tenDangNhap)
+        {
+            return db.TaiKhoan.FirstOrDefault(tk => tk.TenDangNhap == tenDangNhap);
+        }
+
         public bool Add(TaiKhoan taiKhoan)
         {
             try
@@ -24,6 +29,45 @@ namespace QuanLyGym.BLL
                 if (check != null) return false;
 
                 db.TaiKhoan.Add(taiKhoan);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Delete(string tenDangNhap)
+        {
+            try
+            {
+                var tk = db.TaiKhoan.FirstOrDefault(t => t.TenDangNhap == tenDangNhap);
+                if (tk == null) return false;
+
+                db.TaiKhoan.Remove(tk);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Update(TaiKhoan taiKhoan)
+        {
+            try
+            {
+                var tk = db.TaiKhoan.FirstOrDefault(t => t.TenDangNhap == taiKhoan.TenDangNhap);
+                if (tk == null) return false;
+
+                tk.MatKhau = taiKhoan.MatKhau;
+                tk.QuyenHan = taiKhoan.QuyenHan;
+                tk.TrangThai = taiKhoan.TrangThai;
+                tk.MaNv = taiKhoan.MaNv;
+                tk.MaHv = taiKhoan.MaHv;
+
                 db.SaveChanges();
                 return true;
             }
@@ -51,25 +95,6 @@ namespace QuanLyGym.BLL
                 tk.TrangThai == true &&
                 !string.IsNullOrEmpty(tk.MaHv) &&
                 string.IsNullOrEmpty(tk.MaNv)); // Chỉ hội viên, không phải nhân viên
-        }
-
-        public TaiKhoan Delete(string tenDangNhap)
-        {
-            try
-            {
-                var taiKhoan = db.TaiKhoan.FirstOrDefault(tk => tk.TenDangNhap == tenDangNhap);
-                if (taiKhoan != null)
-                {
-                    db.TaiKhoan.Remove(taiKhoan);
-                    db.SaveChanges();
-                    return taiKhoan;
-                }
-                return null;
-            }
-            catch
-            {
-                return null;
-            }
         }
     }
 }

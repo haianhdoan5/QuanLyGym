@@ -62,7 +62,23 @@ namespace QuanLyGym.BLL
                 return false;
             }
         }
+        public bool DeleteThietBi(string maTB)
+        {
+            try
+            {
+                var tb = db.ThietBiGym.Find(maTB);
+                if (tb == null) return false;
 
+                // Tuân thủ No Delete Policy: Thay vì xóa, cập nhật tình trạng
+                tb.TinhTrang = "Đã thanh lý";
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
     }
 }
