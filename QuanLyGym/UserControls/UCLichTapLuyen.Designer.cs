@@ -67,158 +67,136 @@ namespace QuanLyGym.UserControls
             this.pnlThongTin.Controls.Add(this.lblMaLichTap);
             this.pnlThongTin.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlThongTin.Location = new System.Drawing.Point(0, 0);
+            this.pnlThongTin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnlThongTin.Name = "pnlThongTin";
-            this.pnlThongTin.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlThongTin.Size = new System.Drawing.Size(800, 150);
+            this.pnlThongTin.Padding = new System.Windows.Forms.Padding(13, 12, 13, 12);
+            this.pnlThongTin.Size = new System.Drawing.Size(1067, 185);
             this.pnlThongTin.TabIndex = 0;
-            // 
-            // lblMaLichTap
-            // 
-            this.lblMaLichTap.AutoSize = true;
-            this.lblMaLichTap.Location = new System.Drawing.Point(10, 20);
-            this.lblMaLichTap.Name = "lblMaLichTap";
-            this.lblMaLichTap.Size = new System.Drawing.Size(80, 13);
-            this.lblMaLichTap.TabIndex = 0;
-            this.lblMaLichTap.Text = "Mã Lịch Tập:";
-            // 
-            // txtMaLichTap
-            // 
-            this.txtMaLichTap.Location = new System.Drawing.Point(100, 20);
-            this.txtMaLichTap.Name = "txtMaLichTap";
-            this.txtMaLichTap.Size = new System.Drawing.Size(150, 20);
-            this.txtMaLichTap.TabIndex = 1;
-            // 
-            // lblNgayTap
-            // 
-            this.lblNgayTap.AutoSize = true;
-            this.lblNgayTap.Location = new System.Drawing.Point(280, 20);
-            this.lblNgayTap.Name = "lblNgayTap";
-            this.lblNgayTap.Size = new System.Drawing.Size(60, 13);
-            this.lblNgayTap.TabIndex = 2;
-            this.lblNgayTap.Text = "Ngày Tập:";
-            // 
-            // dtpNgayTap
-            // 
-            this.dtpNgayTap.Location = new System.Drawing.Point(350, 20);
-            this.dtpNgayTap.Name = "dtpNgayTap";
-            this.dtpNgayTap.Size = new System.Drawing.Size(150, 20);
-            this.dtpNgayTap.TabIndex = 3;
-            // 
-            // lblGioTap
-            // 
-            this.lblGioTap.AutoSize = true;
-            this.lblGioTap.Location = new System.Drawing.Point(520, 20);
-            this.lblGioTap.Name = "lblGioTap";
-            this.lblGioTap.Size = new System.Drawing.Size(50, 13);
-            this.lblGioTap.TabIndex = 4;
-            this.lblGioTap.Text = "Giờ Tập:";
-            // 
-            // txtGioTap
-            // 
-            this.txtGioTap.Location = new System.Drawing.Point(580, 20);
-            this.txtGioTap.Name = "txtGioTap";
-            this.txtGioTap.Size = new System.Drawing.Size(100, 20);
-            this.txtGioTap.TabIndex = 5;
-            // 
-            // lblTrangThai
-            // 
-            this.lblTrangThai.AutoSize = true;
-            this.lblTrangThai.Location = new System.Drawing.Point(10, 50);
-            this.lblTrangThai.Name = "lblTrangThai";
-            this.lblTrangThai.Size = new System.Drawing.Size(60, 13);
-            this.lblTrangThai.TabIndex = 6;
-            this.lblTrangThai.Text = "Trạng Thái:";
-            // 
-            // cbTrangThai
-            // 
-            this.cbTrangThai.FormattingEnabled = true;
-            this.cbTrangThai.Items.AddRange(new object[] {
-            "Chưa Tập",
-            "Đã Tập",
-            "Vắng Mặt"});
-            this.cbTrangThai.Location = new System.Drawing.Point(100, 50);
-            this.cbTrangThai.Name = "cbTrangThai";
-            this.cbTrangThai.Size = new System.Drawing.Size(150, 21);
-            this.cbTrangThai.TabIndex = 7;
-            // 
-            // lblMaHV
-            // 
-            this.lblMaHV.AutoSize = true;
-            this.lblMaHV.Location = new System.Drawing.Point(280, 50);
-            this.lblMaHV.Name = "lblMaHV";
-            this.lblMaHV.Size = new System.Drawing.Size(50, 13);
-            this.lblMaHV.TabIndex = 8;
-            this.lblMaHV.Text = "Mã HV:";
-            // 
-            // txtMaHV
-            // 
-            this.txtMaHV.Location = new System.Drawing.Point(350, 50);
-            this.txtMaHV.Name = "txtMaHV";
-            this.txtMaHV.Size = new System.Drawing.Size(150, 20);
-            this.txtMaHV.TabIndex = 9;
             // 
             // lblMaNV
             // 
             this.lblMaNV.AutoSize = true;
-            this.lblMaNV.Location = new System.Drawing.Point(520, 50);
+            this.lblMaNV.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaNV.Location = new System.Drawing.Point(534, 124);
+            this.lblMaNV.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMaNV.Name = "lblMaNV";
-            this.lblMaNV.Size = new System.Drawing.Size(50, 13);
+            this.lblMaNV.Size = new System.Drawing.Size(79, 25);
             this.lblMaNV.TabIndex = 10;
             this.lblMaNV.Text = "Mã NV:";
             // 
             // txtMaNV
             // 
-            this.txtMaNV.Location = new System.Drawing.Point(580, 50);
+            this.txtMaNV.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaNV.Location = new System.Drawing.Point(639, 121);
+            this.txtMaNV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtMaNV.Name = "txtMaNV";
-            this.txtMaNV.Size = new System.Drawing.Size(100, 20);
+            this.txtMaNV.Size = new System.Drawing.Size(183, 30);
             this.txtMaNV.TabIndex = 11;
             // 
-            // pnlBtn
+            // lblMaHV
             // 
-            this.pnlBtn.Controls.Add(this.btnXoa);
-            this.pnlBtn.Controls.Add(this.btnSua);
-            this.pnlBtn.Controls.Add(this.btnThem);
-            this.pnlBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBtn.Location = new System.Drawing.Point(0, 500);
-            this.pnlBtn.Name = "pnlBtn";
-            this.pnlBtn.Size = new System.Drawing.Size(800, 50);
-            this.pnlBtn.TabIndex = 2;
+            this.lblMaHV.AutoSize = true;
+            this.lblMaHV.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaHV.Location = new System.Drawing.Point(534, 40);
+            this.lblMaHV.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMaHV.Name = "lblMaHV";
+            this.lblMaHV.Size = new System.Drawing.Size(79, 25);
+            this.lblMaHV.TabIndex = 8;
+            this.lblMaHV.Text = "Mã HV:";
             // 
-            // btnThem
+            // txtMaHV
             // 
-            this.btnThem.BackColor = System.Drawing.Color.Green;
-            this.btnThem.ForeColor = System.Drawing.Color.White;
-            this.btnThem.Location = new System.Drawing.Point(20, 10);
-            this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(100, 30);
-            this.btnThem.TabIndex = 0;
-            this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = false;
-            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
+            this.txtMaHV.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaHV.Location = new System.Drawing.Point(639, 37);
+            this.txtMaHV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMaHV.Name = "txtMaHV";
+            this.txtMaHV.Size = new System.Drawing.Size(183, 30);
+            this.txtMaHV.TabIndex = 9;
             // 
-            // btnSua
+            // cbTrangThai
             // 
-            this.btnSua.BackColor = System.Drawing.Color.Orange;
-            this.btnSua.ForeColor = System.Drawing.Color.White;
-            this.btnSua.Location = new System.Drawing.Point(140, 10);
-            this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(100, 30);
-            this.btnSua.TabIndex = 1;
-            this.btnSua.Text = "Sửa";
-            this.btnSua.UseVisualStyleBackColor = false;
-            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
+            this.cbTrangThai.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTrangThai.FormattingEnabled = true;
+            this.cbTrangThai.Items.AddRange(new object[] {
+            "Chưa Tập",
+            "Đã Tập",
+            "Vắng Mặt"});
+            this.cbTrangThai.Location = new System.Drawing.Point(158, 79);
+            this.cbTrangThai.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbTrangThai.Name = "cbTrangThai";
+            this.cbTrangThai.Size = new System.Drawing.Size(199, 33);
+            this.cbTrangThai.TabIndex = 7;
             // 
-            // btnXoa
+            // lblTrangThai
             // 
-            this.btnXoa.BackColor = System.Drawing.Color.Red;
-            this.btnXoa.ForeColor = System.Drawing.Color.White;
-            this.btnXoa.Location = new System.Drawing.Point(260, 10);
-            this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(100, 30);
-            this.btnXoa.TabIndex = 2;
-            this.btnXoa.Text = "Xóa";
-            this.btnXoa.UseVisualStyleBackColor = false;
-            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
+            this.lblTrangThai.AutoSize = true;
+            this.lblTrangThai.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrangThai.Location = new System.Drawing.Point(22, 82);
+            this.lblTrangThai.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTrangThai.Name = "lblTrangThai";
+            this.lblTrangThai.Size = new System.Drawing.Size(114, 25);
+            this.lblTrangThai.TabIndex = 6;
+            this.lblTrangThai.Text = "Trạng Thái:";
+            // 
+            // txtGioTap
+            // 
+            this.txtGioTap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGioTap.Location = new System.Drawing.Point(639, 79);
+            this.txtGioTap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtGioTap.Name = "txtGioTap";
+            this.txtGioTap.Size = new System.Drawing.Size(183, 30);
+            this.txtGioTap.TabIndex = 5;
+            // 
+            // lblGioTap
+            // 
+            this.lblGioTap.AutoSize = true;
+            this.lblGioTap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGioTap.Location = new System.Drawing.Point(534, 82);
+            this.lblGioTap.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblGioTap.Name = "lblGioTap";
+            this.lblGioTap.Size = new System.Drawing.Size(88, 25);
+            this.lblGioTap.TabIndex = 4;
+            this.lblGioTap.Text = "Giờ Tập:";
+            // 
+            // dtpNgayTap
+            // 
+            this.dtpNgayTap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpNgayTap.Location = new System.Drawing.Point(158, 124);
+            this.dtpNgayTap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpNgayTap.Name = "dtpNgayTap";
+            this.dtpNgayTap.Size = new System.Drawing.Size(328, 30);
+            this.dtpNgayTap.TabIndex = 3;
+            // 
+            // lblNgayTap
+            // 
+            this.lblNgayTap.AutoSize = true;
+            this.lblNgayTap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNgayTap.Location = new System.Drawing.Point(22, 124);
+            this.lblNgayTap.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblNgayTap.Name = "lblNgayTap";
+            this.lblNgayTap.Size = new System.Drawing.Size(104, 25);
+            this.lblNgayTap.TabIndex = 2;
+            this.lblNgayTap.Text = "Ngày Tập:";
+            // 
+            // txtMaLichTap
+            // 
+            this.txtMaLichTap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaLichTap.Location = new System.Drawing.Point(158, 37);
+            this.txtMaLichTap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMaLichTap.Name = "txtMaLichTap";
+            this.txtMaLichTap.Size = new System.Drawing.Size(199, 30);
+            this.txtMaLichTap.TabIndex = 1;
+            // 
+            // lblMaLichTap
+            // 
+            this.lblMaLichTap.AutoSize = true;
+            this.lblMaLichTap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaLichTap.Location = new System.Drawing.Point(23, 40);
+            this.lblMaLichTap.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMaLichTap.Name = "lblMaLichTap";
+            this.lblMaLichTap.Size = new System.Drawing.Size(127, 25);
+            this.lblMaLichTap.TabIndex = 0;
+            this.lblMaLichTap.Text = "Mã Lịch Tập:";
             // 
             // dgvLichTap
             // 
@@ -226,21 +204,78 @@ namespace QuanLyGym.UserControls
             this.dgvLichTap.BackgroundColor = System.Drawing.Color.White;
             this.dgvLichTap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLichTap.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvLichTap.Location = new System.Drawing.Point(0, 150);
+            this.dgvLichTap.Location = new System.Drawing.Point(0, 185);
+            this.dgvLichTap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvLichTap.Name = "dgvLichTap";
-            this.dgvLichTap.Size = new System.Drawing.Size(800, 350);
+            this.dgvLichTap.RowHeadersWidth = 51;
+            this.dgvLichTap.Size = new System.Drawing.Size(1067, 430);
             this.dgvLichTap.TabIndex = 1;
+            // 
+            // pnlBtn
+            // 
+            this.pnlBtn.Controls.Add(this.btnXoa);
+            this.pnlBtn.Controls.Add(this.btnSua);
+            this.pnlBtn.Controls.Add(this.btnThem);
+            this.pnlBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlBtn.Location = new System.Drawing.Point(0, 615);
+            this.pnlBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlBtn.Name = "pnlBtn";
+            this.pnlBtn.Size = new System.Drawing.Size(1067, 62);
+            this.pnlBtn.TabIndex = 2;
+            // 
+            // btnXoa
+            // 
+            this.btnXoa.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnXoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoa.ForeColor = System.Drawing.Color.Black;
+            this.btnXoa.Location = new System.Drawing.Point(309, 4);
+            this.btnXoa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(133, 45);
+            this.btnXoa.TabIndex = 2;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.UseVisualStyleBackColor = false;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
+            // 
+            // btnSua
+            // 
+            this.btnSua.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnSua.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSua.ForeColor = System.Drawing.Color.Black;
+            this.btnSua.Location = new System.Drawing.Point(168, 4);
+            this.btnSua.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSua.Name = "btnSua";
+            this.btnSua.Size = new System.Drawing.Size(133, 45);
+            this.btnSua.TabIndex = 1;
+            this.btnSua.Text = "Sửa";
+            this.btnSua.UseVisualStyleBackColor = false;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
+            // 
+            // btnThem
+            // 
+            this.btnThem.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThem.ForeColor = System.Drawing.Color.Black;
+            this.btnThem.Location = new System.Drawing.Point(27, 4);
+            this.btnThem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnThem.Name = "btnThem";
+            this.btnThem.Size = new System.Drawing.Size(133, 45);
+            this.btnThem.TabIndex = 0;
+            this.btnThem.Text = "Thêm";
+            this.btnThem.UseVisualStyleBackColor = false;
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // UCLichTapLuyen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.dgvLichTap);
             this.Controls.Add(this.pnlBtn);
             this.Controls.Add(this.pnlThongTin);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "UCLichTapLuyen";
-            this.Size = new System.Drawing.Size(800, 550);
+            this.Size = new System.Drawing.Size(1067, 677);
             this.Load += new System.EventHandler(this.UCLichTapLuyen_Load);
             this.pnlThongTin.ResumeLayout(false);
             this.pnlThongTin.PerformLayout();

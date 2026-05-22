@@ -287,8 +287,14 @@
     <EmbeddedResource Include="Formmain.resx">
       <DependentUpon>Formmain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormMain_HoiVien.resx">
+      <DependentUpon>FormMain_HoiVien.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain_NhanVien.resx">
       <DependentUpon>FormMain_NhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain_PT.resx">
+      <DependentUpon>FormMain_PT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDangNhap.resx">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
@@ -305,6 +311,9 @@
     <EmbeddedResource Include="UserControls\UCBaoCao.resx">
       <DependentUpon>UCBaoCao.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCChiSoInbody.resx">
+      <DependentUpon>UCChiSoInbody.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCGoiTapGym.resx">
       <DependentUpon>UCGoiTapGym.cs</DependentUpon>
     </EmbeddedResource>
@@ -313,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCHopDong.resx">
       <DependentUpon>UCHopDong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCLichTapLuyen.resx">
+      <DependentUpon>UCLichTapLuyen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCNhanVien.resx">
       <DependentUpon>UCNhanVien.cs</DependentUpon>

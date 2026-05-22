@@ -45,10 +45,11 @@ namespace QuanLyGym.UserControls
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 25);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(13, 20);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 16);
+            this.label1.Size = new System.Drawing.Size(156, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Mã Khuyến Mãi:";
             this.label1.Visible = false;
@@ -56,84 +57,94 @@ namespace QuanLyGym.UserControls
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 62);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(13, 61);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(134, 16);
+            this.label2.Size = new System.Drawing.Size(203, 25);
             this.label2.TabIndex = 1;
             this.label2.Text = "Phần Trăm Giảm (%):";
             // 
             // txtMaKm
             // 
-            this.txtMaKm.Location = new System.Drawing.Point(187, 21);
-            this.txtMaKm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMaKm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaKm.Location = new System.Drawing.Point(220, 17);
+            this.txtMaKm.Margin = new System.Windows.Forms.Padding(4);
             this.txtMaKm.Name = "txtMaKm";
-            this.txtMaKm.Size = new System.Drawing.Size(265, 22);
+            this.txtMaKm.Size = new System.Drawing.Size(265, 30);
             this.txtMaKm.TabIndex = 2;
             this.txtMaKm.Visible = false;
             // 
             // txtPhanTramGiam
             // 
-            this.txtPhanTramGiam.Location = new System.Drawing.Point(187, 58);
-            this.txtPhanTramGiam.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPhanTramGiam.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPhanTramGiam.Location = new System.Drawing.Point(220, 58);
+            this.txtPhanTramGiam.Margin = new System.Windows.Forms.Padding(4);
             this.txtPhanTramGiam.Name = "txtPhanTramGiam";
-            this.txtPhanTramGiam.Size = new System.Drawing.Size(265, 22);
+            this.txtPhanTramGiam.Size = new System.Drawing.Size(265, 30);
             this.txtPhanTramGiam.TabIndex = 3;
             this.txtPhanTramGiam.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPhanTramGiam_KeyPress);
             // 
             // btnThem
             // 
-            this.btnThem.Location = new System.Drawing.Point(493, 21);
-            this.btnThem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnThem.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThem.Location = new System.Drawing.Point(608, 20);
+            this.btnThem.Margin = new System.Windows.Forms.Padding(4);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(100, 28);
+            this.btnThem.Size = new System.Drawing.Size(109, 36);
             this.btnThem.TabIndex = 4;
             this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = true;
+            this.btnThem.UseVisualStyleBackColor = false;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(601, 21);
-            this.btnSua.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSua.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnSua.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSua.Location = new System.Drawing.Point(608, 64);
+            this.btnSua.Margin = new System.Windows.Forms.Padding(4);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(100, 28);
+            this.btnSua.Size = new System.Drawing.Size(109, 33);
             this.btnSua.TabIndex = 5;
             this.btnSua.Text = "Sửa";
-            this.btnSua.UseVisualStyleBackColor = true;
+            this.btnSua.UseVisualStyleBackColor = false;
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnXoa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(709, 21);
-            this.btnXoa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnXoa.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnXoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoa.Location = new System.Drawing.Point(725, 65);
+            this.btnXoa.Margin = new System.Windows.Forms.Padding(4);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(100, 28);
+            this.btnXoa.Size = new System.Drawing.Size(109, 33);
             this.btnXoa.TabIndex = 6;
             this.btnXoa.Text = "Xóa";
-            this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.UseVisualStyleBackColor = false;
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnLamMoi
             // 
-            this.btnLamMoi.Location = new System.Drawing.Point(817, 21);
-            this.btnLamMoi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLamMoi.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnLamMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLamMoi.Location = new System.Drawing.Point(725, 20);
+            this.btnLamMoi.Margin = new System.Windows.Forms.Padding(4);
             this.btnLamMoi.Name = "btnLamMoi";
-            this.btnLamMoi.Size = new System.Drawing.Size(100, 28);
+            this.btnLamMoi.Size = new System.Drawing.Size(109, 37);
             this.btnLamMoi.TabIndex = 7;
             this.btnLamMoi.Text = "Làm Mới";
-            this.btnLamMoi.UseVisualStyleBackColor = true;
+            this.btnLamMoi.UseVisualStyleBackColor = false;
             this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
             // 
             // dgvKhuyenMai
             // 
             this.dgvKhuyenMai.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvKhuyenMai.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgvKhuyenMai.Location = new System.Drawing.Point(0, 123);
-            this.dgvKhuyenMai.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvKhuyenMai.Location = new System.Drawing.Point(18, 122);
+            this.dgvKhuyenMai.Margin = new System.Windows.Forms.Padding(4);
             this.dgvKhuyenMai.Name = "dgvKhuyenMai";
             this.dgvKhuyenMai.RowHeadersWidth = 51;
-            this.dgvKhuyenMai.Size = new System.Drawing.Size(933, 431);
+            this.dgvKhuyenMai.Size = new System.Drawing.Size(803, 414);
             this.dgvKhuyenMai.TabIndex = 8;
             this.dgvKhuyenMai.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKhuyenMai_CellClick);
             // 
@@ -149,9 +160,9 @@ namespace QuanLyGym.UserControls
             this.panel1.Controls.Add(this.btnLamMoi);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(933, 123);
+            this.panel1.Size = new System.Drawing.Size(926, 123);
             this.panel1.TabIndex = 9;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -161,9 +172,9 @@ namespace QuanLyGym.UserControls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvKhuyenMai);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UCKhuyenMai";
-            this.Size = new System.Drawing.Size(933, 554);
+            this.Size = new System.Drawing.Size(926, 554);
             this.Load += new System.EventHandler(this.UCKhuyenMai_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvKhuyenMai)).EndInit();
             this.panel1.ResumeLayout(false);
