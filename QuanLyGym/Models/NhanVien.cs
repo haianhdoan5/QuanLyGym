@@ -13,7 +13,6 @@ namespace QuanLyGym.Models
         {
             BaoCaoHongHoc = new HashSet<BaoCaoHongHoc>();
             ChamSocHoiVien = new HashSet<ChamSocHoiVien>();
-            HoSoNhanSu = new HashSet<HoSoNhanSu>();
             HopDong = new HashSet<HopDong>();
             Lam = new HashSet<Lam>();
             LichBaoTri = new HashSet<LichBaoTri>();
@@ -30,7 +29,6 @@ namespace QuanLyGym.Models
 
         public virtual ICollection<BaoCaoHongHoc> BaoCaoHongHoc { get; set; }
         public virtual ICollection<ChamSocHoiVien> ChamSocHoiVien { get; set; }
-        public virtual ICollection<HoSoNhanSu> HoSoNhanSu { get; set; }
         public virtual ICollection<HopDong> HopDong { get; set; }
         public virtual ICollection<Lam> Lam { get; set; }
         public virtual ICollection<LichBaoTri> LichBaoTri { get; set; }

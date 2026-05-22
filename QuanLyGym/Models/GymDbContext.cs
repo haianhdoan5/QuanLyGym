@@ -25,7 +25,6 @@ namespace QuanLyGym.Models
         public virtual DbSet<ChiSoInbody> ChiSoInbody { get; set; }
         public virtual DbSet<DoanhThu> DoanhThu { get; set; }
         public virtual DbSet<GoiTapGym> GoiTapGym { get; set; }
-        public virtual DbSet<HoSoNhanSu> HoSoNhanSu { get; set; }
         public virtual DbSet<HoaDon> HoaDon { get; set; }
         public virtual DbSet<HoiVien> HoiVien { get; set; }
         public virtual DbSet<HopDong> HopDong { get; set; }
@@ -195,35 +194,6 @@ namespace QuanLyGym.Models
                     .WithMany(p => p.GoiTapGym)
                     .HasForeignKey(d => d.MaKm)
                     .HasConstraintName("FK__GoiTapGym__MaKM__5BE2A6F2");
-            });
-
-            modelBuilder.Entity<HoSoNhanSu>(entity =>
-            {
-                entity.HasKey(e => e.MaHs)
-                    .HasName("PK__HoSoNhan__2725A6EF10240D09");
-
-                entity.Property(e => e.MaHs)
-                    .HasColumnName("MaHS")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ChungChi).HasMaxLength(255);
-
-                entity.Property(e => e.MaNv)
-                    .HasColumnName("MaNV")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.NgayVaoLam).HasColumnType("date");
-
-                entity.Property(e => e.TenNv)
-                    .HasColumnName("TenNV")
-                    .HasMaxLength(100);
-
-                entity.HasOne(d => d.MaNvNavigation)
-                    .WithMany(p => p.HoSoNhanSu)
-                    .HasForeignKey(d => d.MaNv)
-                    .HasConstraintName("FK__HoSoNhanSu__MaNV__619B8048");
             });
 
             modelBuilder.Entity<HoaDon>(entity =>

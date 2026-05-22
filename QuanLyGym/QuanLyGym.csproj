@@ -213,7 +213,6 @@
     <Compile Include="Models\HoaDon.cs" />
     <Compile Include="Models\HoiVien.cs" />
     <Compile Include="Models\HopDong.cs" />
-    <Compile Include="Models\HoSoNhanSu.cs" />
     <Compile Include="Models\KhuyenMai.cs" />
     <Compile Include="Models\Lam.cs" />
     <Compile Include="Models\LichBaoTri.cs" />
