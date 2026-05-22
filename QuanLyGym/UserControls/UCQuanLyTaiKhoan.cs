@@ -72,7 +72,7 @@ namespace QuanLyGym.UserControls
                 btnXoa.Visible = true;
             }
         }
-
+        //
         private void CboQuyenHan_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateComboVisibility();
