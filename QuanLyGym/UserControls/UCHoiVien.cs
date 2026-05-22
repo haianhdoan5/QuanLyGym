@@ -24,14 +24,14 @@ namespace QuanLyGym.UserControls
 
         private void UCHoiVien_Load(object sender, EventArgs e)
         {
-            LoadData();
             CheckPermissions();
+            LoadData();
         }
 
         private void CheckPermissions()
         {
             // Nếu là hội viên, ẩn tất cả chức năng
-            if (LuuThongTin.LoaiNguoiDung == "HoiVien")
+            if (LuuThongTin.QuyenHan == "Hội Viên")
             {
                 btnThem.Visible = false;
                 btnSua.Visible = false;
@@ -41,10 +41,7 @@ namespace QuanLyGym.UserControls
                 dgvHoiVien.ReadOnly = true;
             }
             // Nếu là PT, chỉ cho xem
-            else if (LuuThongTin.QuyenHan != null && 
-                (LuuThongTin.QuyenHan.Contains("PT") || 
-                 LuuThongTin.QuyenHan.Contains("PersonalTrainer") || 
-                 LuuThongTin.QuyenHan.Contains("Huấn Luyện")))
+            else if (LuuThongTin.QuyenHan == "PT")
             {
                 btnThem.Visible = false;
                 btnSua.Visible = false;
@@ -54,13 +51,20 @@ namespace QuanLyGym.UserControls
                 dgvHoiVien.ReadOnly = true;
             }
             // Nếu là nhân viên, vô hiệu hóa nút Sửa và Xóa
-            else if (LuuThongTin.QuyenHan != null && 
-                (LuuThongTin.QuyenHan.Contains("Nhân Viên") || 
-                 LuuThongTin.QuyenHan.Contains("NhanVien") || 
-                 LuuThongTin.QuyenHan.ToLower().Contains("staff")))
+            else if (LuuThongTin.QuyenHan == "NhanVien")
             {
                 btnSua.Visible = false;
                 btnXoa.Visible = false;
+            }
+            // Nếu là Admin, hiển thị tất cả nút
+            else if (LuuThongTin.QuyenHan == "Admin")
+            {
+                btnThem.Visible = true;
+                btnSua.Visible = true;
+                btnXoa.Visible = true;
+                btnLamMoi.Visible = true;
+                pnlForm.Visible = true;
+                dgvHoiVien.ReadOnly = false;
             }
         }
 
@@ -68,20 +72,7 @@ namespace QuanLyGym.UserControls
         {
             try
             {
-                List<HoiVien> list;
-
-                // Nếu là hội viên, chỉ lấy dữ liệu của hội viên đó
-                if (LuuThongTin.LoaiNguoiDung == "HoiVien")
-                {
-                    MessageBox.Show($"Debug: MaHV={LuuThongTin.MaHV}, LoaiNguoiDung={LuuThongTin.LoaiNguoiDung}", "Debug");
-                    list = bll.GetAll().Where(h => h.MaHv == LuuThongTin.MaHV).ToList();
-                    MessageBox.Show($"Debug: Tìm được {list.Count} hội viên", "Debug");
-                }
-                else
-                {
-                    list = bll.GetAll();
-                }
-
+                List<HoiVien> list = bll.GetAll();
                 dgvHoiVien.DataSource = list;
 
                 // Format columns
@@ -112,12 +103,6 @@ namespace QuanLyGym.UserControls
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaHV.Text))
-            {
-                MessageBox.Show("Vui lòng nhập mã hội viên");
-                return;
-            }
-
             if (string.IsNullOrWhiteSpace(txtTenHV.Text))
             {
                 MessageBox.Show("Vui lòng nhập tên hội viên");
@@ -132,9 +117,12 @@ namespace QuanLyGym.UserControls
 
             try
             {
+                // 1. Tự động sinh mã HV
+                string maHVMoi = bll.GetNextMaHV();
+
                 HoiVien hv = new HoiVien
                 {
-                    MaHv = txtMaHV.Text,
+                    MaHv = maHVMoi,
                     TenHv = txtTenHV.Text,
                     GioiTinh = cbGioiTinh.SelectedItem.ToString(),
                     Sdt = txtSDT.Text
@@ -142,7 +130,20 @@ namespace QuanLyGym.UserControls
 
                 if (bll.Insert(hv))
                 {
-                    MessageBox.Show("Thêm hội viên thành công!");
+                    // 2. Tự động tạo Tài khoản đăng nhập cho Hội viên
+                    TaiKhoan tkMoi = new TaiKhoan
+                    {
+                        TenDangNhap = maHVMoi,
+                        MatKhau = "1",
+                        QuyenHan = "Hội Viên", // Cứng quyền hội viên
+                        TrangThai = true,
+                        MaNv = null,
+                        MaHv = maHVMoi
+                    };
+
+                    using (var db = new GymDbContext()) { db.TaiKhoan.Add(tkMoi); db.SaveChanges(); }
+
+                    MessageBox.Show($"Thêm thành công!\nTài khoản: {maHVMoi}\nMật khẩu: 1", "Tạo tự động");
                     ClearForm();
                     LoadData();
                 }
@@ -247,8 +248,8 @@ namespace QuanLyGym.UserControls
                 DataGridViewRow row = dgvHoiVien.Rows[e.RowIndex];
                 txtMaHV.Text = row.Cells["MaHv"].Value?.ToString() ?? "";
 
-                // Nếu là hội viên, chỉ cho xem không được sửa
-                if (LuuThongTin.LoaiNguoiDung != "HoiVien")
+                // Chỉ cho Admin sửa
+                if (LuuThongTin.QuyenHan == "Admin")
                 {
                     txtMaHV.ReadOnly = true;
                     txtTenHV.Text = row.Cells["TenHv"].Value?.ToString() ?? "";

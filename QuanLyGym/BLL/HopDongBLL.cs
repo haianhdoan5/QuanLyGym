@@ -109,5 +109,22 @@ namespace QuanLyGym.BLL
                 }
             }
         }
+
+        // 5. Auto-generate next Mã Hợp Đồng
+        public string GetNextMaHD()
+        {
+            using (var context = new GymDbContext())
+            {
+                // Lấy tất cả mã HD, cắt bỏ chữ "HD", ép sang kiểu số, tìm số lớn nhất
+                var maxId = context.HopDong.ToList()
+                    .Where(h => h.MaHd.StartsWith("HD"))
+                    .Select(h => int.Parse(h.MaHd.Substring(2)))
+                    .DefaultIfEmpty(0)
+                    .Max();
+
+                // Cộng 1 và format lại thành dạng HD01, HD02...
+                return "HD" + (maxId + 1).ToString("D2");
+            }
+        }
     }
 }

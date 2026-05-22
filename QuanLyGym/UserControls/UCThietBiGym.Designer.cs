@@ -35,7 +35,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtMaTB = new System.Windows.Forms.TextBox();
             this.txtTenTB = new System.Windows.Forms.TextBox();
-            this.txtLoaiTB = new System.Windows.Forms.TextBox();
             this.dtpNgayMua = new System.Windows.Forms.DateTimePicker();
             this.cboTinhTrang = new System.Windows.Forms.ComboBox();
             this.btnThem = new System.Windows.Forms.Button();
@@ -45,6 +44,7 @@
             this.dgvThietBi = new System.Windows.Forms.DataGridView();
             this.pnlForm = new System.Windows.Forms.Panel();
             this.pnlButtons = new System.Windows.Forms.Panel();
+            this.cboLoaiThietBi = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvThietBi)).BeginInit();
             this.pnlForm.SuspendLayout();
             this.pnlButtons.SuspendLayout();
@@ -59,6 +59,7 @@
             this.label1.Size = new System.Drawing.Size(77, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Mã Thiết Bị:";
+            this.label1.Visible = false;
             // 
             // label2
             // 
@@ -103,31 +104,24 @@
             // txtMaTB
             // 
             this.txtMaTB.Location = new System.Drawing.Point(133, 12);
-            this.txtMaTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMaTB.Margin = new System.Windows.Forms.Padding(4);
             this.txtMaTB.Name = "txtMaTB";
             this.txtMaTB.Size = new System.Drawing.Size(265, 22);
             this.txtMaTB.TabIndex = 5;
+            this.txtMaTB.Visible = false;
             // 
             // txtTenTB
             // 
             this.txtTenTB.Location = new System.Drawing.Point(133, 49);
-            this.txtTenTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTenTB.Margin = new System.Windows.Forms.Padding(4);
             this.txtTenTB.Name = "txtTenTB";
             this.txtTenTB.Size = new System.Drawing.Size(265, 22);
             this.txtTenTB.TabIndex = 6;
             // 
-            // txtLoaiTB
-            // 
-            this.txtLoaiTB.Location = new System.Drawing.Point(133, 86);
-            this.txtLoaiTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txtLoaiTB.Name = "txtLoaiTB";
-            this.txtLoaiTB.Size = new System.Drawing.Size(265, 22);
-            this.txtLoaiTB.TabIndex = 7;
-            // 
             // dtpNgayMua
             // 
             this.dtpNgayMua.Location = new System.Drawing.Point(133, 123);
-            this.dtpNgayMua.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpNgayMua.Margin = new System.Windows.Forms.Padding(4);
             this.dtpNgayMua.Name = "dtpNgayMua";
             this.dtpNgayMua.Size = new System.Drawing.Size(265, 22);
             this.dtpNgayMua.TabIndex = 8;
@@ -142,7 +136,7 @@
             "Cần sửa chữa",
             "Đã thanh lý"});
             this.cboTinhTrang.Location = new System.Drawing.Point(133, 160);
-            this.cboTinhTrang.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboTinhTrang.Margin = new System.Windows.Forms.Padding(4);
             this.cboTinhTrang.Name = "cboTinhTrang";
             this.cboTinhTrang.Size = new System.Drawing.Size(265, 24);
             this.cboTinhTrang.TabIndex = 9;
@@ -150,7 +144,7 @@
             // btnThem
             // 
             this.btnThem.Location = new System.Drawing.Point(13, 12);
-            this.btnThem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnThem.Margin = new System.Windows.Forms.Padding(4);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(100, 28);
             this.btnThem.TabIndex = 10;
@@ -161,7 +155,7 @@
             // btnSua
             // 
             this.btnSua.Location = new System.Drawing.Point(335, 12);
-            this.btnSua.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSua.Margin = new System.Windows.Forms.Padding(4);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(100, 28);
             this.btnSua.TabIndex = 11;
@@ -172,7 +166,7 @@
             // btnXoa
             // 
             this.btnXoa.Location = new System.Drawing.Point(227, 12);
-            this.btnXoa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnXoa.Margin = new System.Windows.Forms.Padding(4);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(100, 28);
             this.btnXoa.TabIndex = 12;
@@ -183,7 +177,7 @@
             // btnLamMoi
             // 
             this.btnLamMoi.Location = new System.Drawing.Point(121, 12);
-            this.btnLamMoi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLamMoi.Margin = new System.Windows.Forms.Padding(4);
             this.btnLamMoi.Name = "btnLamMoi";
             this.btnLamMoi.Size = new System.Drawing.Size(100, 28);
             this.btnLamMoi.TabIndex = 13;
@@ -196,15 +190,17 @@
             this.dgvThietBi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvThietBi.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvThietBi.Location = new System.Drawing.Point(0, 283);
-            this.dgvThietBi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvThietBi.Margin = new System.Windows.Forms.Padding(4);
             this.dgvThietBi.Name = "dgvThietBi";
             this.dgvThietBi.RowHeadersWidth = 51;
             this.dgvThietBi.Size = new System.Drawing.Size(929, 435);
             this.dgvThietBi.TabIndex = 14;
+            this.dgvThietBi.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvThietBi_CellContentClick);
             this.dgvThietBi.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvThietBi_CellDoubleClick);
             // 
             // pnlForm
             // 
+            this.pnlForm.Controls.Add(this.cboLoaiThietBi);
             this.pnlForm.Controls.Add(this.label1);
             this.pnlForm.Controls.Add(this.label2);
             this.pnlForm.Controls.Add(this.label3);
@@ -212,12 +208,11 @@
             this.pnlForm.Controls.Add(this.label5);
             this.pnlForm.Controls.Add(this.txtMaTB);
             this.pnlForm.Controls.Add(this.txtTenTB);
-            this.pnlForm.Controls.Add(this.txtLoaiTB);
             this.pnlForm.Controls.Add(this.dtpNgayMua);
             this.pnlForm.Controls.Add(this.cboTinhTrang);
             this.pnlForm.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlForm.Location = new System.Drawing.Point(0, 0);
-            this.pnlForm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlForm.Margin = new System.Windows.Forms.Padding(4);
             this.pnlForm.Name = "pnlForm";
             this.pnlForm.Size = new System.Drawing.Size(929, 209);
             this.pnlForm.TabIndex = 15;
@@ -230,10 +225,21 @@
             this.pnlButtons.Controls.Add(this.btnLamMoi);
             this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlButtons.Location = new System.Drawing.Point(0, 209);
-            this.pnlButtons.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlButtons.Margin = new System.Windows.Forms.Padding(4);
             this.pnlButtons.Name = "pnlButtons";
             this.pnlButtons.Size = new System.Drawing.Size(929, 74);
             this.pnlButtons.TabIndex = 16;
+            // 
+            // cboLoaiThietBi
+            // 
+            this.cboLoaiThietBi.FormattingEnabled = true;
+            this.cboLoaiThietBi.Items.AddRange(new object[] {
+            "Máy",
+            "Tạ"});
+            this.cboLoaiThietBi.Location = new System.Drawing.Point(133, 86);
+            this.cboLoaiThietBi.Name = "cboLoaiThietBi";
+            this.cboLoaiThietBi.Size = new System.Drawing.Size(265, 24);
+            this.cboLoaiThietBi.TabIndex = 10;
             // 
             // UCThietBiGym
             // 
@@ -242,7 +248,7 @@
             this.Controls.Add(this.dgvThietBi);
             this.Controls.Add(this.pnlButtons);
             this.Controls.Add(this.pnlForm);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UCThietBiGym";
             this.Size = new System.Drawing.Size(929, 718);
             this.Load += new System.EventHandler(this.UCThietBiGym_Load);
@@ -263,7 +269,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtMaTB;
         private System.Windows.Forms.TextBox txtTenTB;
-        private System.Windows.Forms.TextBox txtLoaiTB;
         private System.Windows.Forms.DateTimePicker dtpNgayMua;
         private System.Windows.Forms.ComboBox cboTinhTrang;
         private System.Windows.Forms.Button btnThem;
@@ -273,5 +278,6 @@
         private System.Windows.Forms.DataGridView dgvThietBi;
         private System.Windows.Forms.Panel pnlForm;
         private System.Windows.Forms.Panel pnlButtons;
+        private System.Windows.Forms.ComboBox cboLoaiThietBi;
     }
 }

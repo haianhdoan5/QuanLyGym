@@ -73,38 +73,58 @@ namespace QuanLyGym.UserControls
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaNV.Text))
-            {
-                MessageBox.Show("Vui lòng nhập mã nhân viên");
-                return;
-            }
-
             if (string.IsNullOrWhiteSpace(txtTenNV.Text))
             {
                 MessageBox.Show("Vui lòng nhập tên nhân viên");
                 return;
             }
 
+            if (cbChucVu.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn chức vụ");
+                return;
+            }
+
             try
             {
+                // 1. Lấy mã nhân viên tự động
+                string maNVMoi = bll.GetNextMaNV();
+
                 NhanVien nv = new NhanVien
                 {
-                    MaNv = txtMaNV.Text,
+                    MaNv = maNVMoi, // Dùng mã tự động thay vì txtMaNV.Text
                     TenNv = txtTenNV.Text,
                     Sdt = txtSDT.Text,
-                    ChucVu = txtChucVu.Text
+                    ChucVu = cbChucVu.SelectedItem.ToString()
                 };
 
                 bool result = bll.AddNhanVien(nv);
                 if (result)
                 {
-                    MessageBox.Show("Thêm nhân viên thành công!");
+                    // 2. Tự động tạo Tài khoản đăng nhập
+                    TaiKhoanBLL tkBll = new TaiKhoanBLL(); // Đảm bảo bạn đã using QuanLyGym.BLL;
+                    TaiKhoan tkMoi = new TaiKhoan
+                    {
+                        TenDangNhap = maNVMoi,
+                        MatKhau = "1",
+                        QuyenHan = cbChucVu.SelectedItem.ToString(), // Lấy chức vụ làm quyền hạn (Admin, Lễ Tân, PT...)
+                        TrangThai = true,
+                        MaNv = maNVMoi,
+                        MaHv = null
+                    };
+
+                    // Gọi hàm Add (hoặc Insert) trong TaiKhoanBLL của bạn
+                    // Ví dụ: tkBll.Add(tkMoi); 
+                    // Dùng context lưu trực tiếp nếu TaiKhoanBLL chưa viết kịp:
+                    using (var db = new GymDbContext()) { db.TaiKhoan.Add(tkMoi); db.SaveChanges(); }
+
+                    MessageBox.Show($"Thêm thành công!\nTài khoản: {maNVMoi}\nMật khẩu: 1", "Tạo tự động");
                     ClearForm();
                     LoadData();
                 }
                 else
                 {
-                    MessageBox.Show("Mã nhân viên này đã tồn tại!");
+                    MessageBox.Show("Thêm thất bại!");
                 }
             }
             catch (Exception ex)
@@ -127,6 +147,12 @@ namespace QuanLyGym.UserControls
                 return;
             }
 
+            if (cbChucVu.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn chức vụ");
+                return;
+            }
+
             try
             {
                 NhanVien nv = new NhanVien
@@ -134,7 +160,7 @@ namespace QuanLyGym.UserControls
                     MaNv = txtMaNV.Text,
                     TenNv = txtTenNV.Text,
                     Sdt = txtSDT.Text,
-                    ChucVu = txtChucVu.Text
+                    ChucVu = cbChucVu.SelectedItem.ToString()
                 };
 
                 string result = bll.Update(nv);
@@ -201,7 +227,8 @@ namespace QuanLyGym.UserControls
                 txtMaNV.ReadOnly = true;
                 txtTenNV.Text = row.Cells["TenNv"].Value?.ToString() ?? "";
                 txtSDT.Text = row.Cells["Sdt"].Value?.ToString() ?? "";
-                txtChucVu.Text = row.Cells["ChucVu"].Value?.ToString() ?? "";
+                string chucVu = row.Cells["ChucVu"].Value?.ToString() ?? "";
+                cbChucVu.SelectedItem = chucVu;
                 isEditing = true;
             }
         }
@@ -212,7 +239,7 @@ namespace QuanLyGym.UserControls
             txtMaNV.ReadOnly = false;
             txtTenNV.Text = "";
             txtSDT.Text = "";
-            txtChucVu.Text = "";
+            cbChucVu.SelectedIndex = -1;
             isEditing = false;
         }
 

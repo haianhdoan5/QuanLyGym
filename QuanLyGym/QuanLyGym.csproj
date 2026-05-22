@@ -303,6 +303,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\UCBaoCao.resx">
+      <DependentUpon>UCBaoCao.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCGoiTapGym.resx">
       <DependentUpon>UCGoiTapGym.cs</DependentUpon>
     </EmbeddedResource>

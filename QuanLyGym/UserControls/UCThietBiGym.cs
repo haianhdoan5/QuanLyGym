@@ -72,21 +72,16 @@ namespace QuanLyGym.UserControls
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaTB.Text))
-            {
-                MessageBox.Show("Vui lòng nhập mã thiết bị");
-                return;
-            }
-
+            // Đã bỏ check txtMaTB vì sinh tự động
             if (string.IsNullOrWhiteSpace(txtTenTB.Text))
             {
                 MessageBox.Show("Vui lòng nhập tên thiết bị");
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(txtLoaiTB.Text))
+            if (cboLoaiThietBi.SelectedIndex == -1) // Đổi từ txtLoaiTB sang cboLoaiThietBi
             {
-                MessageBox.Show("Vui lòng nhập loại thiết bị");
+                MessageBox.Show("Vui lòng chọn loại thiết bị (Máy/Tạ)");
                 return;
             }
 
@@ -98,24 +93,27 @@ namespace QuanLyGym.UserControls
 
             try
             {
+                // Gọi hàm tự sinh mã từ BLL
+                string maTBMoi = bll.GetNextMaTb();
+
                 ThietBiGym thietBi = new ThietBiGym
                 {
-                    MaTb = txtMaTB.Text,
+                    MaTb = maTBMoi, // Dùng mã mới sinh
                     TenTb = txtTenTB.Text,
-                    LoaiThietBi = txtLoaiTB.Text,
+                    LoaiThietBi = cboLoaiThietBi.SelectedItem.ToString(), // Lấy từ ComboBox
                     NgayMua = dtpNgayMua.Value,
                     TinhTrang = cboTinhTrang.SelectedItem.ToString()
                 };
 
                 if (bll.AddThietBi(thietBi))
                 {
-                    MessageBox.Show("Thêm thiết bị thành công!");
+                    MessageBox.Show($"Thêm thiết bị thành công với Mã: {maTBMoi}");
                     ClearForm();
                     LoadData();
                 }
                 else
                 {
-                    MessageBox.Show("Thêm thiết bị thất bại (mã thiết bị có thể đã tồn tại)");
+                    MessageBox.Show("Thêm thiết bị thất bại!");
                 }
             }
             catch (Exception ex)
@@ -128,7 +126,7 @@ namespace QuanLyGym.UserControls
         {
             if (string.IsNullOrWhiteSpace(txtMaTB.Text))
             {
-                MessageBox.Show("Vui lòng chọn thiết bị để sửa");
+                MessageBox.Show("Vui lòng chọn thiết bị ở bảng dưới để sửa");
                 return;
             }
 
@@ -138,9 +136,9 @@ namespace QuanLyGym.UserControls
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(txtLoaiTB.Text))
+            if (cboLoaiThietBi.SelectedIndex == -1) // Đổi từ txtLoaiTB
             {
-                MessageBox.Show("Vui lòng nhập loại thiết bị");
+                MessageBox.Show("Vui lòng chọn loại thiết bị");
                 return;
             }
 
@@ -156,7 +154,7 @@ namespace QuanLyGym.UserControls
                 {
                     MaTb = txtMaTB.Text,
                     TenTb = txtTenTB.Text,
-                    LoaiThietBi = txtLoaiTB.Text,
+                    LoaiThietBi = cboLoaiThietBi.SelectedItem.ToString(), // Lấy từ ComboBox
                     NgayMua = dtpNgayMua.Value,
                     TinhTrang = cboTinhTrang.SelectedItem.ToString()
                 };
@@ -220,8 +218,11 @@ namespace QuanLyGym.UserControls
             {
                 DataGridViewRow row = dgvThietBi.Rows[e.RowIndex];
                 txtMaTB.Text = row.Cells["MaTb"].Value?.ToString() ?? "";
-                txtMaTB.ReadOnly = true;
                 txtTenTB.Text = row.Cells["TenTb"].Value?.ToString() ?? "";
+
+                // Đẩy loại thiết bị lên ComboBox
+                cboLoaiThietBi.SelectedItem = row.Cells["LoaiThietBi"].Value?.ToString() ?? "";
+
                 if (row.Cells["NgayMua"].Value != null && row.Cells["NgayMua"].Value != DBNull.Value)
                 {
                     dtpNgayMua.Value = (DateTime)row.Cells["NgayMua"].Value;
@@ -234,11 +235,16 @@ namespace QuanLyGym.UserControls
         private void ClearForm()
         {
             txtMaTB.Text = "";
-            txtMaTB.ReadOnly = false;
             txtTenTB.Text = "";
             dtpNgayMua.Value = DateTime.Now;
             cboTinhTrang.SelectedIndex = -1;
+            cboLoaiThietBi.SelectedIndex = -1; // Reset lại ComboBox Loại
             isEditing = false;
+        }
+
+        private void dgvThietBi_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

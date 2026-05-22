@@ -40,17 +40,19 @@ namespace QuanLyGym.UserControls
         {
             if (LuuThongTin.QuyenHan == "NhanVien")
             {
-                // Nhân viên chỉ có thể tạo tài khoản cho Hội Viên
+                // Nhân viên chỉ được tạo tài khoản Hội Viên
                 cboQuyenHan.Items.Clear();
                 cboQuyenHan.Items.Add("Hội Viên");
                 cboQuyenHan.SelectedIndex = 0;
-                cboQuyenHan.Enabled = false;
+                cboQuyenHan.Enabled = false; // Khóa chọn quyền
 
-                // Ẩn combo mã nhân viên, hiển thị combo hội viên
-                cboMaNV.Visible = false;
-                cboMaHV.Visible = true;
+                // Làm mờ ô Mã NV, chỉ cho phép thao tác ô Mã HV
+                cboMaNV.Enabled = false;
+                cboMaHV.Enabled = true;
 
-                // Ẩn nút xóa đối với nhân viên
+                // Nhân viên ĐƯỢC THÊM, nhưng KHÔNG ĐƯỢC SỬA/XÓA
+                btnThem.Visible = true;
+                btnSua.Visible = false;
                 btnXoa.Visible = false;
             }
             else if (LuuThongTin.QuyenHan == "Admin")
@@ -64,11 +66,13 @@ namespace QuanLyGym.UserControls
                 cboQuyenHan.SelectedIndex = 0;
                 cboQuyenHan.Enabled = true;
 
-                // Hiển thị cả hai combo, xử lý thay đổi
+                // Cập nhật trạng thái mờ/rõ của 2 ô Mã NV/HV
                 UpdateComboVisibility();
                 cboQuyenHan.SelectedIndexChanged += CboQuyenHan_SelectedIndexChanged;
 
-                // Hiển thị nút xóa cho Admin
+                // Admin xài full quyền
+                btnThem.Visible = true;
+                btnSua.Visible = true;
                 btnXoa.Visible = true;
             }
         }
@@ -80,15 +84,21 @@ namespace QuanLyGym.UserControls
 
         private void UpdateComboVisibility()
         {
-            if (cboQuyenHan.SelectedIndex == 3) // "Hội Viên"
+            if (cboQuyenHan.Text == "Hội Viên")
             {
-                cboMaNV.Visible = false;
-                cboMaHV.Visible = true;
+                // Nếu là Hội Viên -> Khóa Mã NV, Mở Mã HV
+                cboMaNV.Enabled = false;
+                cboMaNV.SelectedIndex = -1; // Xóa lựa chọn đang có
+
+                cboMaHV.Enabled = true;
             }
-            else // Admin, NhanVien, PT
+            else
             {
-                cboMaNV.Visible = true;
-                cboMaHV.Visible = false;
+                // Nếu là Admin, NhanVien, PT -> Khóa Mã HV, Mở Mã NV
+                cboMaHV.Enabled = false;
+                cboMaHV.SelectedIndex = -1; // Xóa lựa chọn đang có
+
+                cboMaNV.Enabled = true;
             }
         }
 
@@ -96,8 +106,29 @@ namespace QuanLyGym.UserControls
         {
             try
             {
-                // Load tài khoản vào datagridview
-                List<TaiKhoan> taiKhoanList = bll.GetAll();
+                // 1. Lấy toàn bộ tài khoản từ DB để xử lý
+                List<TaiKhoan> allTaiKhoan = bll.GetAll();
+
+                // 2. Tạo 2 danh sách tạm (XÓA KHOẢNG TRẮNG VÀ IN HOA ĐỂ SO SÁNH CHÍNH XÁC 100%)
+                List<string> dacoTaiKhoanNV = allTaiKhoan
+                    .Where(t => !string.IsNullOrWhiteSpace(t.MaNv))
+                    .Select(t => t.MaNv.Trim().ToUpper())
+                    .ToList();
+
+                List<string> dacoTaiKhoanHV = allTaiKhoan
+                    .Where(t => !string.IsNullOrWhiteSpace(t.MaHv))
+                    .Select(t => t.MaHv.Trim().ToUpper())
+                    .ToList();
+
+                // 3. Load tài khoản vào datagridview
+                List<TaiKhoan> taiKhoanList = allTaiKhoan;
+
+                // Nếu là NhanVien, chỉ hiển thị tài khoản Hội Viên
+                if (LuuThongTin.QuyenHan == "NhanVien")
+                {
+                    taiKhoanList = taiKhoanList.Where(tk => tk.QuyenHan == "Hội Viên").ToList();
+                }
+
                 dgvTaiKhoan.DataSource = taiKhoanList;
 
                 // Format columns
@@ -117,16 +148,34 @@ namespace QuanLyGym.UserControls
                         dgvTaiKhoan.Columns["MaHvNavigation"].Visible = false;
                 }
 
-                // Load nhân viên vào combo
-                List<NhanVien> nhanVienList = nhanVienBLL.GetNhanVien();
-                cboMaNV.DataSource = nhanVienList;
-                cboMaNV.DisplayMember = "TenNv";
+                // 4. Load nhân viên vào combo (LỌC SO SÁNH CHUỖI CHUẨN KÉP)
+                List<NhanVien> nhanVienList = nhanVienBLL.GetNhanVien()
+                    .Where(nv => !dacoTaiKhoanNV.Contains(nv.MaNv.Trim().ToUpper()))
+                    .ToList();
+
+                var nvDisplayList = nhanVienList.Select(nv => new
+                {
+                    MaNv = nv.MaNv,
+                    HienThi = nv.MaNv + " - " + nv.TenNv
+                }).ToList();
+
+                cboMaNV.DataSource = nvDisplayList;
+                cboMaNV.DisplayMember = "HienThi";
                 cboMaNV.ValueMember = "MaNv";
 
-                // Load hội viên vào combo
-                List<HoiVien> hoiVienList = hoiVienBLL.GetAll();
-                cboMaHV.DataSource = hoiVienList;
-                cboMaHV.DisplayMember = "TenHv";
+                // 5. Load hội viên vào combo (LỌC SO SÁNH CHUỖI CHUẨN KÉP)
+                List<HoiVien> hoiVienList = hoiVienBLL.GetAll()
+                    .Where(hv => !dacoTaiKhoanHV.Contains(hv.MaHv.Trim().ToUpper()))
+                    .ToList();
+
+                var hvDisplayList = hoiVienList.Select(hv => new
+                {
+                    MaHv = hv.MaHv,
+                    HienThi = hv.MaHv + " - " + hv.TenHv
+                }).ToList();
+
+                cboMaHV.DataSource = hvDisplayList;
+                cboMaHV.DisplayMember = "HienThi";
                 cboMaHV.ValueMember = "MaHv";
             }
             catch (Exception ex)
@@ -135,69 +184,86 @@ namespace QuanLyGym.UserControls
             }
         }
 
-        private void btnThem_Click(object sender, EventArgs e)
+        private void btnThem_Click(object sender, EventArgs e) //btnSua do đổi tên nhưng hàm tự sinh không đổi
         {
+            // Kiểm tra quyền (Bảo mật kép)
+            if (LuuThongTin.QuyenHan != "Admin")
+            {
+                MessageBox.Show("Chỉ Admin mới có quyền cập nhật tài khoản!");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text))
+            {
+                MessageBox.Show("Vui lòng chọn tài khoản từ danh sách để sửa!");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtMatKhau.Text))
+            {
+                MessageBox.Show("Mật khẩu không được để trống!");
+                return;
+            }
+
+            if (cboTrangThai.SelectedIndex == -1)
+            {
+                MessageBox.Show("Vui lòng chọn trạng thái tài khoản!");
+                return;
+            }
+
             try
             {
-                // Kiểm tra tên đăng nhập
-                if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text))
+                TaiKhoan tkSua = new TaiKhoan
                 {
-                    MessageBox.Show("Vui lòng nhập tên đăng nhập");
-                    return;
-                }
+                    TenDangNhap = txtTenDangNhap.Text, // Lấy tên ĐN làm khóa tìm kiếm
+                    MatKhau = txtMatKhau.Text,         // Cho phép sửa mật khẩu
+                    QuyenHan = cboQuyenHan.Text,       // Cho phép đổi quyền
+                    TrangThai = (cboTrangThai.SelectedItem.ToString() == "Hoạt động"), // True/False
 
-                // Kiểm tra mật khẩu
-                if (string.IsNullOrWhiteSpace(txtMatKhau.Text))
-                {
-                    MessageBox.Show("Vui lòng nhập mật khẩu");
-                    return;
-                }
-
-                TaiKhoan taiKhoan = new TaiKhoan
-                {
-                    TenDangNhap = txtTenDangNhap.Text,
-                    MatKhau = txtMatKhau.Text,
-                    QuyenHan = cboQuyenHan.Text,
-                    TrangThai = true
+                    // Giữ nguyên Mã gốc
+                    MaNv = (cboQuyenHan.Text == "Hội Viên") ? null : cboMaNV.SelectedValue?.ToString(),
+                    MaHv = (cboQuyenHan.Text == "Hội Viên") ? cboMaHV.SelectedValue?.ToString() : null
                 };
 
-                // Xác định MaNv và MaHv dựa trên quyền hạn
-                if (cboQuyenHan.Text == "Hội Viên")
+                if (bll.Update(tkSua))
                 {
-                    taiKhoan.MaHv = cboMaHV.SelectedValue?.ToString();
-                    taiKhoan.MaNv = null;
-                }
-                else
-                {
-                    taiKhoan.MaNv = cboMaNV.SelectedValue?.ToString();
-                    taiKhoan.MaHv = null;
-                }
-
-                bool result = bll.Add(taiKhoan);
-                if (result)
-                {
-                    MessageBox.Show("Thêm tài khoản thành công!");
+                    MessageBox.Show("Cập nhật thông tin tài khoản thành công!");
                     ClearForm();
                     LoadData();
                 }
                 else
                 {
-                    MessageBox.Show("Tên đăng nhập đã tồn tại");
+                    MessageBox.Show("Cập nhật thất bại. Vui lòng thử lại!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thêm tài khoản: " + ex.Message);
+                MessageBox.Show("Lỗi khi sửa tài khoản: " + ex.Message);
             }
         }
 
         private void ClearForm()
         {
             txtTenDangNhap.Clear();
+            txtTenDangNhap.ReadOnly = false; // Mở khóa lại ô Tên Đăng Nhập
+
             txtMatKhau.Clear();
-            cboQuyenHan.SelectedIndex = 0;
-            cboMaNV.SelectedIndex = 0;
-            cboMaHV.SelectedIndex = 0;
+
+            if (cboTrangThai.Items.Count > 0) cboTrangThai.SelectedIndex = 0;
+
+            // Trả lại trạng thái phân quyền ban đầu
+            if (LuuThongTin.QuyenHan == "Admin")
+            {
+                cboQuyenHan.Enabled = true;
+                cboQuyenHan.SelectedIndex = 0;
+                UpdateComboVisibility(); // Hàm này sẽ tự mở khóa đúng ô Mã NV/HV
+            }
+            else if (LuuThongTin.QuyenHan == "NhanVien")
+            {
+                cboQuyenHan.SelectedIndex = 0; // Luôn là Hội Viên
+                cboMaNV.Enabled = false;
+                cboMaHV.Enabled = true;
+            }
         }
 
         private void cboMaNV_SelectedIndexChanged(object sender, EventArgs e)
@@ -265,6 +331,54 @@ namespace QuanLyGym.UserControls
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi xóa tài khoản: " + ex.Message);
+            }
+        }
+
+        private void dgvTaiKhoan_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvTaiKhoan.Rows[e.RowIndex];
+
+                // 1. Đẩy dữ liệu lên form
+                txtTenDangNhap.Text = row.Cells["TenDangNhap"].Value?.ToString() ?? "";
+                txtMatKhau.Text = row.Cells["MatKhau"].Value?.ToString() ?? "";
+
+                // Khi gán Text cho cboQuyenHan, nó sẽ tự động kích hoạt hàm UpdateComboVisibility()
+                cboQuyenHan.Text = row.Cells["QuyenHan"].Value?.ToString() ?? "";
+
+                // 2. Đẩy trạng thái (true = Hoạt động, false = Không hoạt động)
+                bool trangThai = row.Cells["TrangThai"].Value != null && (bool)row.Cells["TrangThai"].Value;
+                cboTrangThai.SelectedItem = trangThai ? "Hoạt động" : "Không hoạt động";
+
+                // 3. Chọn mã NV hoặc HV tương ứng
+                if (cboQuyenHan.Text == "Hội Viên")
+                {
+                    cboMaHV.SelectedValue = row.Cells["MaHv"].Value?.ToString() ?? "";
+                }
+                else
+                {
+                    cboMaNV.SelectedValue = row.Cells["MaNv"].Value?.ToString() ?? "";
+                }
+
+                // ==========================================
+                // 4. KHOÁ CÁC TRƯỜNG THEO QUYỀN
+                // ==========================================
+
+                // Tên đăng nhập và Mã (NV/HV) luôn luôn bị khóa để bảo toàn dữ liệu
+                txtTenDangNhap.ReadOnly = true;
+                cboMaNV.Enabled = false;
+                cboMaHV.Enabled = false;
+
+                // Chỉ Admin mới được phép mở khóa để sửa Quyền Hạn
+                if (LuuThongTin.QuyenHan == "Admin")
+                {
+                    cboQuyenHan.Enabled = true;
+                }
+                else
+                {
+                    cboQuyenHan.Enabled = false;
+                }
             }
         }
     }
