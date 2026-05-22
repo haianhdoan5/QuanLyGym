@@ -46,7 +46,7 @@ namespace QuanLyGym
 
         private void btnBaoCao_Click(object sender, EventArgs e)
         {
-            UCBaoCao ucBaoCao = new UCBaoCao();
+            UCBaoCao ucBaoCao = new UCBaoCao(LuuThongTin.QuyenHan);
             TargetControlToPanel(ucBaoCao);
         }
 
