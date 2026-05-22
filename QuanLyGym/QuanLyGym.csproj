@@ -163,10 +163,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\BaoCaoBLL.cs" />
+    <Compile Include="BLL\ChiSoInbodyBLL.cs" />
     <Compile Include="BLL\GoiTapGymBLL.cs" />
     <Compile Include="BLL\HoiVienBLL.cs" />
     <Compile Include="BLL\HopDongBLL.cs" />
     <Compile Include="BLL\KhuyenMaiBLL.cs" xmlns="" />
+    <Compile Include="BLL\LichTapLuyenBLL.cs" />
     <Compile Include="BLL\NhanVienBLL.cs" />
     <Compile Include="BLL\TaiKhoanBLL.cs" />
     <Compile Include="BLL\ThietBiGymBLL.cs" />
@@ -175,6 +177,18 @@
     </Compile>
     <Compile Include="Formmain.Designer.cs">
       <DependentUpon>Formmain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain_HoiVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain_HoiVien.Designer.cs">
+      <DependentUpon>FormMain_HoiVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain_PT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain_PT.Designer.cs">
+      <DependentUpon>FormMain_PT.cs</DependentUpon>
     </Compile>
     <Compile Include="frmDangNhap.cs">
       <SubType>Form</SubType>
@@ -214,6 +228,12 @@
     <Compile Include="UserControls\UCBaoCao.Designer.cs">
       <DependentUpon>UCBaoCao.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UCChiSoInbody.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCChiSoInbody.Designer.cs">
+      <DependentUpon>UCChiSoInbody.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UCGoiTapGym.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -237,6 +257,12 @@
     </Compile>
     <Compile Include="UserControls\UCKhuyenMai.Designer.cs" xmlns="">
       <DependentUpon>UCKhuyenMai.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCLichTapLuyen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCLichTapLuyen.Designer.cs">
+      <DependentUpon>UCLichTapLuyen.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UCNhanVien.cs">
       <SubType>UserControl</SubType>

@@ -15,7 +15,7 @@ namespace QuanLyGym
     {
         TaiKhoanBLL tkBLL = new TaiKhoanBLL();
 
-        
+
 
         public frmDangNhap()
         {
@@ -34,16 +34,25 @@ namespace QuanLyGym
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
+            // Cố gắng đăng nhập như nhân viên trước
             var taikhoan = tkBLL.KiemTraDangNhap(txtTaiKhoan.Text, txtMatKhau.Text);
 
-            if (taikhoan != null)
+            if (taikhoan != null && !string.IsNullOrEmpty(taikhoan.MaNv))
             {
-                // Lưu thông tin người dùng (QuyenHan, MaNV) vào biến toàn cục tĩnh
+                // Đăng nhập thành công như nhân viên
                 LuuThongTin.MaNV = taikhoan.MaNv;
+                LuuThongTin.MaHV = taikhoan.MaHv;
                 LuuThongTin.QuyenHan = taikhoan.QuyenHan;
+                LuuThongTin.LoaiNguoiDung = "NhanVien";
 
-                // Kiểm tra quyền hạn để hiển thị form phù hợp
-                if (taikhoan.QuyenHan != null && (taikhoan.QuyenHan.Contains("Nhân Viên") || taikhoan.QuyenHan.Contains("NhanVien") || taikhoan.QuyenHan.ToLower().Contains("staff")))
+                // Phân loại nhân viên: PT, Nhân viên, Admin
+                if (taikhoan.QuyenHan != null && (taikhoan.QuyenHan.Contains("PT") || taikhoan.QuyenHan.Contains("PersonalTrainer") || taikhoan.QuyenHan.Contains("Huấn Luyện")))
+                {
+                    // Mở form dành cho PT
+                    FormMain_PT frm = new FormMain_PT();
+                    frm.Show();
+                }
+                else if (taikhoan.QuyenHan != null && (taikhoan.QuyenHan.Contains("Nhân Viên") || taikhoan.QuyenHan.Contains("NhanVien") || taikhoan.QuyenHan.ToLower().Contains("staff")))
                 {
                     // Mở form dành cho nhân viên
                     FormMain_NhanVien frm = new FormMain_NhanVien();
@@ -59,7 +68,26 @@ namespace QuanLyGym
             }
             else
             {
-                MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
+                // Nếu không phải nhân viên, thử đăng nhập như hội viên
+                var taikkhoanHoiVien = tkBLL.KiemTraDangNhapHoiVien(txtTaiKhoan.Text, txtMatKhau.Text);
+
+                if (taikkhoanHoiVien != null)
+                {
+                    // Đăng nhập thành công như hội viên
+                    LuuThongTin.MaNV = null;
+                    LuuThongTin.MaHV = taikkhoanHoiVien.MaHv;
+                    LuuThongTin.QuyenHan = "HoiVien";
+                    LuuThongTin.LoaiNguoiDung = "HoiVien";
+
+                    // Mở form dành cho hội viên
+                    FormMain_HoiVien frm = new FormMain_HoiVien();
+                    frm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
+                }
             }
         }
 

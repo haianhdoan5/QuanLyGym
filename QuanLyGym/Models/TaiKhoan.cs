@@ -14,7 +14,9 @@ namespace QuanLyGym.Models
         public bool? TrangThai { get; set; }
         public string QuyenHan { get; set; }
         public string MaNv { get; set; }
+        public string MaHv { get; set; }
 
         public virtual NhanVien MaNvNavigation { get; set; }
+        public virtual HoiVien MaHvNavigation { get; set; }
     }
 }

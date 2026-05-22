@@ -563,6 +563,11 @@ namespace QuanLyGym.Models
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
+                entity.Property(e => e.MaHv)
+                    .HasColumnName("MaHV")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.MatKhau)
                     .IsRequired()
                     .HasMaxLength(255)
@@ -576,6 +581,11 @@ namespace QuanLyGym.Models
                     .WithMany(p => p.TaiKhoan)
                     .HasForeignKey(d => d.MaNv)
                     .HasConstraintName("FK__TaiKhoan__MaNV__656C112C");
+
+                entity.HasOne(d => d.MaHvNavigation)
+                    .WithMany(p => p.TaiKhoan)
+                    .HasForeignKey(d => d.MaHv)
+                    .HasConstraintName("FK__TaiKhoan__MaHV__SomeConstraint");
             });
 
             modelBuilder.Entity<ThietBiGym>(entity =>

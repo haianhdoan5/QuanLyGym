@@ -30,8 +30,20 @@ namespace QuanLyGym.UserControls
 
         private void CheckPermissions()
         {
-            // Nếu là nhân viên, vô hiệu hóa nút Sửa và Xóa
+            // Nếu là PT, chỉ cho xem
             if (LuuThongTin.QuyenHan != null && 
+                (LuuThongTin.QuyenHan.Contains("PT") || 
+                 LuuThongTin.QuyenHan.Contains("PersonalTrainer") || 
+                 LuuThongTin.QuyenHan.Contains("Huấn Luyện")))
+            {
+                btnThem.Visible = false;
+                btnSua.Visible = false;
+                btnXoa.Visible = false;
+                btnLamMoi.Visible = false;
+                pnlForm.Visible = false;
+            }
+            // Nếu là nhân viên, vô hiệu hóa nút Sửa và Xóa
+            else if (LuuThongTin.QuyenHan != null && 
                 (LuuThongTin.QuyenHan.Contains("Nhân Viên") || 
                  LuuThongTin.QuyenHan.Contains("NhanVien") || 
                  LuuThongTin.QuyenHan.ToLower().Contains("staff")))

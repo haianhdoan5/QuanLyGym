@@ -17,6 +17,7 @@ namespace QuanLyGym.Models
             LichTapLuyen = new HashSet<LichTapLuyen>();
             PhieuChuyenNhuongMaHv1Navigation = new HashSet<PhieuChuyenNhuong>();
             PhieuChuyenNhuongMaHv2Navigation = new HashSet<PhieuChuyenNhuong>();
+            TaiKhoan = new HashSet<TaiKhoan>();
         }
 
         public string MaHv { get; set; }
@@ -30,5 +31,6 @@ namespace QuanLyGym.Models
         public virtual ICollection<LichTapLuyen> LichTapLuyen { get; set; }
         public virtual ICollection<PhieuChuyenNhuong> PhieuChuyenNhuongMaHv1Navigation { get; set; }
         public virtual ICollection<PhieuChuyenNhuong> PhieuChuyenNhuongMaHv2Navigation { get; set; }
+        public virtual ICollection<TaiKhoan> TaiKhoan { get; set; }
     }
 }
