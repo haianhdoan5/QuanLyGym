@@ -32,7 +32,7 @@ namespace QuanLyGym.UserControls
         private void CheckPermissions()
         {
             // Nếu là hội viên, chỉ xem được lịch tập của mình
-            if (LuuThongTin.LoaiNguoiDung == "HoiVien")
+            if (LuuThongTin.QuyenHan == "HoiVien")
             {
                 btnThem.Visible = false;
                 btnSua.Visible = false;

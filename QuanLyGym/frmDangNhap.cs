@@ -20,6 +20,7 @@ namespace QuanLyGym
         public frmDangNhap()
         {
             InitializeComponent();
+            txtMatKhau.UseSystemPasswordChar = true;
         }
 
         private void txtTaiKhoan_TextChanged(object sender, EventArgs e)

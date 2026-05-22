@@ -32,7 +32,7 @@ namespace QuanLyGym.UserControls
         private void CheckPermissions()
         {
             // Nếu là hội viên, chỉ xem
-            if (LuuThongTin.LoaiNguoiDung == "HoiVien")
+            if (LuuThongTin.QuyenHan == "HoiVien")
             {
                 btnThem.Visible = false;
                 btnSua.Visible = false;

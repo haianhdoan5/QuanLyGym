@@ -34,7 +34,7 @@ namespace QuanLyGym.UserControls
         private void CheckPermissions()
         {
             // Nếu là hội viên, chỉ xem
-            if (LuuThongTin.LoaiNguoiDung == "HoiVien")
+            if (LuuThongTin.QuyenHan == "HoiVien")
             {
                 btnThem.Visible = false;
                 btnSua.Visible = false;
@@ -47,6 +47,11 @@ namespace QuanLyGym.UserControls
                 cbGoiTap.Visible = false;
                 cbNhanVien.Visible = false;
                 dgvHopDong.ReadOnly = true;
+                label1.Visible = false; 
+                label2.Visible = false; 
+                label3.Visible = false;
+                label4.Visible = false;
+                label5.Visible = false;
             }
             // Nếu là nhân viên, vô hiệu hóa nút Sửa và Xóa
             else if (LuuThongTin.QuyenHan != null && 
@@ -83,7 +88,7 @@ namespace QuanLyGym.UserControls
             List<HopDong> list;
 
             // Nếu là hội viên, chỉ lấy hợp đồng của họ
-            if (LuuThongTin.LoaiNguoiDung == "HoiVien")
+            if (LuuThongTin.QuyenHan == "HoiVien")
             {
                 list = hdBLL.GetAll().Where(h => h.MaHv == LuuThongTin.MaHV).ToList();
             }
