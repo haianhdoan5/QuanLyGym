@@ -15,6 +15,7 @@ namespace QuanLyGym.UserControls
     public partial class UCGoiTapGym : UserControl
     {
         private GoiTapGymBLL bll = new GoiTapGymBLL();
+        private KhuyenMaiBLL kmBLL = new KhuyenMaiBLL();
         private bool isEditing = false;
 
         public UCGoiTapGym()
@@ -24,7 +25,24 @@ namespace QuanLyGym.UserControls
 
         private void UCGoiTapGym_Load(object sender, EventArgs e)
         {
+            LoadComboBoxKhuyenMai();
             LoadData();
+        }
+
+        private void LoadComboBoxKhuyenMai()
+        {
+            try
+            {
+                var list = kmBLL.GetAll();
+                cbKhuyenMai.DataSource = list;
+                cbKhuyenMai.DisplayMember = "MaKm";
+                cbKhuyenMai.ValueMember = "MaKm";
+                cbKhuyenMai.SelectedIndex = -1; // Không chọn mặc định
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải danh sách khuyến mãi: " + ex.Message);
+            }
         }
 
         private void LoadData()
@@ -102,7 +120,7 @@ namespace QuanLyGym.UserControls
                     TenGoi = txtTenGoi.Text,
                     DonGia = donGia,
                     ThoiHan = thoiHan,
-                    MaKm = string.IsNullOrWhiteSpace(txtMaKM.Text) ? null : txtMaKM.Text
+                    MaKm = cbKhuyenMai.SelectedValue != null ? cbKhuyenMai.SelectedValue.ToString() : null
                 };
 
                 if (bll.AddGoiTap(goiTap))
@@ -168,7 +186,7 @@ namespace QuanLyGym.UserControls
                     TenGoi = txtTenGoi.Text,
                     DonGia = donGia,
                     ThoiHan = thoiHan,
-                    MaKm = string.IsNullOrWhiteSpace(txtMaKM.Text) ? null : txtMaKM.Text
+                    MaKm = cbKhuyenMai.SelectedValue != null ? cbKhuyenMai.SelectedValue.ToString() : null
                 };
 
                 if (bll.UpdateGoiTap(goiTap))
@@ -234,7 +252,18 @@ namespace QuanLyGym.UserControls
                 txtTenGoi.Text = row.Cells["TenGoi"].Value?.ToString() ?? "";
                 txtDonGia.Text = row.Cells["DonGia"].Value?.ToString() ?? "";
                 txtThoiHan.Text = row.Cells["ThoiHan"].Value?.ToString() ?? "";
-                txtMaKM.Text = row.Cells["MaKm"].Value?.ToString() ?? "";
+
+                // Set ComboBox SelectedValue từ MaKm
+                object maKmValue = row.Cells["MaKm"].Value;
+                if (maKmValue != null && !string.IsNullOrEmpty(maKmValue.ToString()))
+                {
+                    cbKhuyenMai.SelectedValue = maKmValue.ToString();
+                }
+                else
+                {
+                    cbKhuyenMai.SelectedIndex = -1;
+                }
+
                 isEditing = true;
             }
         }
@@ -246,7 +275,7 @@ namespace QuanLyGym.UserControls
             txtTenGoi.Text = "";
             txtDonGia.Text = "";
             txtThoiHan.Text = "";
-            txtMaKM.Text = "";
+            cbKhuyenMai.SelectedIndex = -1;
             isEditing = false;
         }
     }

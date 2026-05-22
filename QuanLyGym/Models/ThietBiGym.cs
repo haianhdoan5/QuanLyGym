@@ -20,7 +20,6 @@ namespace QuanLyGym.Models
         public string LoaiThietBi { get; set; }
         public DateTime? NgayMua { get; set; }
         public string TinhTrang { get; set; }
-        public string MaLoai { get; set; }
 
         public virtual ICollection<BaoCaoHongHoc> BaoCaoHongHoc { get; set; }
         public virtual ICollection<LichBaoTri> LichBaoTri { get; set; }

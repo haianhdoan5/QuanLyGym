@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -165,6 +165,7 @@
     <Compile Include="BLL\GoiTapGymBLL.cs" />
     <Compile Include="BLL\HoiVienBLL.cs" />
     <Compile Include="BLL\HopDongBLL.cs" />
+    <Compile Include="BLL\KhuyenMaiBLL.cs" xmlns="" />
     <Compile Include="BLL\NhanVienBLL.cs" />
     <Compile Include="BLL\TaiKhoanBLL.cs" />
     <Compile Include="BLL\ThietBiGymBLL.cs" />
@@ -179,6 +180,12 @@
     </Compile>
     <Compile Include="frmDangNhap.Designer.cs">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain_NhanVien.cs" xmlns="">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain_NhanVien.Designer.cs" xmlns="">
+      <DependentUpon>FormMain_NhanVien.cs</DependentUpon>
     </Compile>
     <Compile Include="LuuThongTin.cs" />
     <Compile Include="Models\BaoCaoHongHoc.cs" />
@@ -221,6 +228,12 @@
     <Compile Include="UserControls\UCHopDong.Designer.cs">
       <DependentUpon>UCHopDong.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UCKhuyenMai.cs" xmlns="">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCKhuyenMai.Designer.cs" xmlns="">
+      <DependentUpon>UCKhuyenMai.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UCNhanVien.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -232,6 +245,12 @@
     </Compile>
     <Compile Include="UserControls\UCThietBiGym.Designer.cs">
       <DependentUpon>UCThietBiGym.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCBaoCao.cs" xmlns="">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCBaoCao.Designer.cs" xmlns="">
+      <DependentUpon>UCBaoCao.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Formmain.resx">
       <DependentUpon>Formmain.cs</DependentUpon>
@@ -262,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCThietBiGym.resx">
       <DependentUpon>UCThietBiGym.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCKhuyenMai.resx" xmlns="">
+      <DependentUpon>UCKhuyenMai.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

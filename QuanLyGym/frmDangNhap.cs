@@ -42,9 +42,19 @@ namespace QuanLyGym
                 LuuThongTin.MaNV = taikhoan.MaNv;
                 LuuThongTin.QuyenHan = taikhoan.QuyenHan;
 
-                // Pass the required 'quyen' argument to the Formmain constructor
-                Formmain frm = new Formmain(taikhoan.QuyenHan);
-                frm.Show();
+                // Kiểm tra quyền hạn để hiển thị form phù hợp
+                if (taikhoan.QuyenHan != null && (taikhoan.QuyenHan.Contains("Nhân Viên") || taikhoan.QuyenHan.Contains("NhanVien") || taikhoan.QuyenHan.ToLower().Contains("staff")))
+                {
+                    // Mở form dành cho nhân viên
+                    FormMain_NhanVien frm = new FormMain_NhanVien();
+                    frm.Show();
+                }
+                else
+                {
+                    // Mở form dành cho quản lý
+                    Formmain frm = new Formmain(taikhoan.QuyenHan);
+                    frm.Show();
+                }
                 this.Hide();
             }
             else
@@ -59,6 +69,11 @@ namespace QuanLyGym
         }
 
         private void frmDangNhap_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }

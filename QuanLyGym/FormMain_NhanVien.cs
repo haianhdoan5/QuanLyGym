@@ -1,4 +1,4 @@
-﻿using QuanLyGym.UserControls;
+using QuanLyGym.UserControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,13 +11,13 @@ using System.Windows.Forms;
 
 namespace QuanLyGym
 {
-    public partial class Formmain : Form
+    public partial class FormMain_NhanVien : Form
     {
-        private string quyenHan = "";
-        public Formmain(string quyen)
+        public FormMain_NhanVien()
         {
             InitializeComponent();
         }
+
         private void TargetControlToPanel(UserControl uc)
         {
             panelContent.Controls.Clear();
@@ -25,6 +25,7 @@ namespace QuanLyGym
             panelContent.Controls.Add(uc);
             uc.BringToFront();
         }
+
         private void btnHoiVien_Click(object sender, EventArgs e)
         {
             UCHoiVien uc = new UCHoiVien();
@@ -37,12 +38,6 @@ namespace QuanLyGym
             TargetControlToPanel(ucHopDong);
         }
 
-        private void btnNhanVien_Click(object sender, EventArgs e)
-        {
-            UCNhanVien ucNhanVien = new UCNhanVien();
-            TargetControlToPanel(ucNhanVien);
-        }
-
         private void btnThietBi_Click(object sender, EventArgs e)
         {
             UCThietBiGym ucThietBi = new UCThietBiGym();
@@ -51,19 +46,8 @@ namespace QuanLyGym
 
         private void btnBaoCao_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void btnGoiTap_Click(object sender, EventArgs e)
-        {
-            UCGoiTapGym ucGoiTap = new UCGoiTapGym();
-            TargetControlToPanel(ucGoiTap);
-        }
-
-        private void btnKhuyenMai_Click(object sender, EventArgs e)
-        {
-            UCKhuyenMai ucKhuyenMai = new UCKhuyenMai();
-            TargetControlToPanel(ucKhuyenMai);
+            UCBaoCao ucBaoCao = new UCBaoCao();
+            TargetControlToPanel(ucBaoCao);
         }
 
         private void panelMenu_Paint(object sender, PaintEventArgs e)
@@ -75,12 +59,13 @@ namespace QuanLyGym
         {
 
         }
-        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+
+        private void FormMain_NhanVien_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
 
-        private void Formmain_Load(object sender, EventArgs e)
+        private void FormMain_NhanVien_Load(object sender, EventArgs e)
         {
 
         }

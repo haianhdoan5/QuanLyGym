@@ -37,7 +37,7 @@
             this.txtTenGoi = new System.Windows.Forms.TextBox();
             this.txtDonGia = new System.Windows.Forms.TextBox();
             this.txtThoiHan = new System.Windows.Forms.TextBox();
-            this.txtMaKM = new System.Windows.Forms.TextBox();
+            this.cbKhuyenMai = new System.Windows.Forms.ComboBox();
             this.btnThem = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnXoa = new System.Windows.Forms.Button();
@@ -125,10 +125,11 @@
             // 
             // txtMaKM
             // 
-            this.txtMaKM.Location = new System.Drawing.Point(100, 130);
-            this.txtMaKM.Name = "txtMaKM";
-            this.txtMaKM.Size = new System.Drawing.Size(200, 20);
-            this.txtMaKM.TabIndex = 9;
+            this.cbKhuyenMai.FormattingEnabled = true;
+            this.cbKhuyenMai.Location = new System.Drawing.Point(100, 130);
+            this.cbKhuyenMai.Name = "cbKhuyenMai";
+            this.cbKhuyenMai.Size = new System.Drawing.Size(200, 21);
+            this.cbKhuyenMai.TabIndex = 9;
             // 
             // btnThem
             // 
@@ -191,7 +192,7 @@
             this.pnlForm.Controls.Add(this.txtTenGoi);
             this.pnlForm.Controls.Add(this.txtDonGia);
             this.pnlForm.Controls.Add(this.txtThoiHan);
-            this.pnlForm.Controls.Add(this.txtMaKM);
+            this.pnlForm.Controls.Add(this.cbKhuyenMai);
             this.pnlForm.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlForm.Location = new System.Drawing.Point(0, 0);
             this.pnlForm.Name = "pnlForm";
@@ -239,7 +240,7 @@
         private System.Windows.Forms.TextBox txtTenGoi;
         private System.Windows.Forms.TextBox txtDonGia;
         private System.Windows.Forms.TextBox txtThoiHan;
-        private System.Windows.Forms.TextBox txtMaKM;
+        private System.Windows.Forms.ComboBox cbKhuyenMai;
         private System.Windows.Forms.Button btnThem;
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.Button btnXoa;

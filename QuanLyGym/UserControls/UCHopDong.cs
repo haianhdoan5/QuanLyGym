@@ -52,6 +52,22 @@ namespace QuanLyGym.UserControls
         {
             // Đổ dữ liệu Hợp Đồng
             dgvHopDong.DataSource = hdBLL.GetAll();
+
+            // Ẩn các cột Navigation không cần thiết
+            if (dgvHopDong.Columns.Contains("MaGoiNavigation"))
+                dgvHopDong.Columns["MaGoiNavigation"].Visible = false;
+            if (dgvHopDong.Columns.Contains("MaHvNavigation"))
+                dgvHopDong.Columns["MaHvNavigation"].Visible = false;
+            if (dgvHopDong.Columns.Contains("MaNvNavigation"))
+                dgvHopDong.Columns["MaNvNavigation"].Visible = false;
+            if (dgvHopDong.Columns.Contains("MaHoaDonNavigation"))
+                dgvHopDong.Columns["MaHoaDonNavigation"].Visible = false;
+            if (dgvHopDong.Columns.Contains("DoanhThu"))
+                dgvHopDong.Columns["DoanhThu"].Visible = false;
+            if (dgvHopDong.Columns.Contains("PhieuBaoLuu"))
+                dgvHopDong.Columns["PhieuBaoLuu"].Visible = false;
+            if (dgvHopDong.Columns.Contains("PhieuChuyenNhuong"))
+                dgvHopDong.Columns["PhieuChuyenNhuong"].Visible = false;
         }
         private void txtMaHD_TextChanged(object sender, EventArgs e)
         {
@@ -77,6 +93,7 @@ namespace QuanLyGym.UserControls
             hd.NoiDung = txtNoiDung.Text.Trim();
             hd.MaHv = cbHoiVien.SelectedValue?.ToString();
             hd.MaGoi = cbGoiTap.SelectedValue?.ToString();
+            hd.MaNv = cbNhanVien.SelectedValue?.ToString();
             // hd.MaKM = txtMaKM.Text;
 
             // Gọi tầng BLL để xử lý cập nhật
@@ -146,6 +163,7 @@ namespace QuanLyGym.UserControls
             hd.NoiDung = txtNoiDung.Text.Trim();
             hd.MaHv = cbHoiVien.SelectedValue?.ToString();
             hd.MaGoi = cbGoiTap.SelectedValue?.ToString();
+            hd.MaNv = cbNhanVien.SelectedValue?.ToString();
 
             // 2. Các trường hệ thống tự sinh
             hd.NgayLap = DateTime.Now;
@@ -153,7 +171,6 @@ namespace QuanLyGym.UserControls
             // 3. Các trường chưa có trên Giao diện (Để tránh lỗi SQL Server)
             // LƯU Ý: Nếu DB bắt buộc (NOT NULL), bạn phải truyền 1 mã có thật (VD: "NV01"). 
             // Nếu DB cho phép trống (Allow Null), bạn có thể gán null.
-            hd.MaNv = null;
             hd.MaHoaDon = null;
 
             // Gọi BLL thêm dữ liệu
@@ -223,6 +240,8 @@ namespace QuanLyGym.UserControls
 
                 if (row.Cells["MaGoi"].Value != null)
                     cbGoiTap.SelectedValue = row.Cells["MaGoi"].Value.ToString();
+                if (row.Cells["MaNV"].Value != null)
+                    cbNhanVien.SelectedValue = row.Cells["MaNV"].Value.ToString();
 
                 // Khóa không cho sửa Mã Hợp Đồng
                 txtMaHD.ReadOnly = true;

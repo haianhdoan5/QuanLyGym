@@ -42,7 +42,6 @@ namespace QuanLyGym.UserControls
                     dgvThietBi.Columns["LoaiThietBi"].HeaderText = "Loại Thiết Bị";
                     dgvThietBi.Columns["NgayMua"].HeaderText = "Ngày Mua";
                     dgvThietBi.Columns["TinhTrang"].HeaderText = "Tình Trạng";
-                    dgvThietBi.Columns["MaLoai"].HeaderText = "Mã Loại";
 
                     // Hide navigation properties if any
                     if (dgvThietBi.Columns.Contains("BaoCaoHongHoc"))
@@ -209,7 +208,6 @@ namespace QuanLyGym.UserControls
                 txtMaTB.Text = row.Cells["MaTb"].Value?.ToString() ?? "";
                 txtMaTB.ReadOnly = true;
                 txtTenTB.Text = row.Cells["TenTb"].Value?.ToString() ?? "";
-                txtLoaiTB.Text = row.Cells["LoaiThietBi"].Value?.ToString() ?? "";
                 if (row.Cells["NgayMua"].Value != null && row.Cells["NgayMua"].Value != DBNull.Value)
                 {
                     dtpNgayMua.Value = (DateTime)row.Cells["NgayMua"].Value;
@@ -224,7 +222,6 @@ namespace QuanLyGym.UserControls
             txtMaTB.Text = "";
             txtMaTB.ReadOnly = false;
             txtTenTB.Text = "";
-            txtLoaiTB.Text = "";
             dtpNgayMua.Value = DateTime.Now;
             cboTinhTrang.SelectedIndex = -1;
             isEditing = false;

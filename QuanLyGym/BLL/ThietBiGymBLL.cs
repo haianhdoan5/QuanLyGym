@@ -53,7 +53,6 @@ namespace QuanLyGym.BLL
                 tbUpdate.LoaiThietBi = thietBi.LoaiThietBi;
                 tbUpdate.NgayMua = thietBi.NgayMua;
                 tbUpdate.TinhTrang = thietBi.TinhTrang;
-                tbUpdate.MaLoai = thietBi.MaLoai;
 
                 db.SaveChanges();
                 return true;

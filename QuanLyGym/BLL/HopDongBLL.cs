@@ -65,7 +65,8 @@ namespace QuanLyGym.BLL
                     hdCu.NoiDung = hdSua.NoiDung;
                     hdCu.MaHv = hdSua.MaHv;
                     hdCu.MaGoi = hdSua.MaGoi;
-                    // hdCu.MaKM = hdSua.MaKM; 
+                    hdCu.MaNv = hdSua.MaNv;
+                    // hdCu.MaKM = hdSua.MaKM;
 
                     // Lưu thay đổi
                     context.SaveChanges();
