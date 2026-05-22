@@ -215,5 +215,10 @@ namespace QuanLyGym.UserControls
             txtChucVu.Text = "";
             isEditing = false;
         }
+
+        private void txtMaNV_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

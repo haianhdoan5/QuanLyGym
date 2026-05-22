@@ -270,6 +270,12 @@
     <Compile Include="UserControls\UCNhanVien.Designer.cs">
       <DependentUpon>UCNhanVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UCQuanLyTaiKhoan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCQuanLyTaiKhoan.Designer.cs">
+      <DependentUpon>UCQuanLyTaiKhoan.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UCThietBiGym.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -281,6 +287,9 @@
     </Compile>
     <EmbeddedResource Include="Formmain.resx">
       <DependentUpon>Formmain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain_NhanVien.resx">
+      <DependentUpon>FormMain_NhanVien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDangNhap.resx">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
@@ -305,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCNhanVien.resx">
       <DependentUpon>UCNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCQuanLyTaiKhoan.resx">
+      <DependentUpon>UCQuanLyTaiKhoan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCThietBiGym.resx">
       <DependentUpon>UCThietBiGym.cs</DependentUpon>

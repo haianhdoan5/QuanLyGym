@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.btnQuanLyTaiKhoan = new System.Windows.Forms.Button();
             this.btnKhuyenMai = new System.Windows.Forms.Button();
             this.btnGoiTap = new System.Windows.Forms.Button();
             this.btnBaoCao = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             // 
             // panelMenu
             // 
+            this.panelMenu.Controls.Add(this.btnQuanLyTaiKhoan);
             this.panelMenu.Controls.Add(this.btnKhuyenMai);
             this.panelMenu.Controls.Add(this.btnGoiTap);
             this.panelMenu.Controls.Add(this.btnBaoCao);
@@ -67,6 +69,17 @@
             this.btnKhuyenMai.Text = "Quản Lý Khuyến Mãi";
             this.btnKhuyenMai.UseVisualStyleBackColor = true;
             this.btnKhuyenMai.Click += new System.EventHandler(this.btnKhuyenMai_Click);
+            // 
+            // btnQuanLyTaiKhoan
+            // 
+            this.btnQuanLyTaiKhoan.Location = new System.Drawing.Point(49, 465);
+            this.btnQuanLyTaiKhoan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnQuanLyTaiKhoan.Name = "btnQuanLyTaiKhoan";
+            this.btnQuanLyTaiKhoan.Size = new System.Drawing.Size(159, 48);
+            this.btnQuanLyTaiKhoan.TabIndex = 7;
+            this.btnQuanLyTaiKhoan.Text = "Quản Lý Tài Khoản";
+            this.btnQuanLyTaiKhoan.UseVisualStyleBackColor = true;
+            this.btnQuanLyTaiKhoan.Click += new System.EventHandler(this.btnQuanLyTaiKhoan_Click);
             // 
             // btnGoiTap
             // 
@@ -164,6 +177,7 @@
 
         private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.Panel panelContent;
+        private System.Windows.Forms.Button btnQuanLyTaiKhoan;
         private System.Windows.Forms.Button btnGoiTap;
         private System.Windows.Forms.Button btnKhuyenMai;
         private System.Windows.Forms.Button btnBaoCao;

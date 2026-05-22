@@ -29,6 +29,7 @@ namespace QuanLyGym
         private void InitializeComponent()
         {
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.btnQuanLyTaiKhoan = new System.Windows.Forms.Button();
             this.btnBaoCao = new System.Windows.Forms.Button();
             this.btnThietBi = new System.Windows.Forms.Button();
             this.btnHopDong = new System.Windows.Forms.Button();
@@ -39,6 +40,7 @@ namespace QuanLyGym
             // 
             // panelMenu
             // 
+            this.panelMenu.Controls.Add(this.btnQuanLyTaiKhoan);
             this.panelMenu.Controls.Add(this.btnBaoCao);
             this.panelMenu.Controls.Add(this.btnThietBi);
             this.panelMenu.Controls.Add(this.btnHopDong);
@@ -49,6 +51,16 @@ namespace QuanLyGym
             this.panelMenu.Size = new System.Drawing.Size(200, 450);
             this.panelMenu.TabIndex = 0;
             this.panelMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMenu_Paint);
+            // 
+            // btnQuanLyTaiKhoan
+            // 
+            this.btnQuanLyTaiKhoan.Location = new System.Drawing.Point(23, 265);
+            this.btnQuanLyTaiKhoan.Name = "btnQuanLyTaiKhoan";
+            this.btnQuanLyTaiKhoan.Size = new System.Drawing.Size(149, 23);
+            this.btnQuanLyTaiKhoan.TabIndex = 4;
+            this.btnQuanLyTaiKhoan.Text = "Quản Lý Tài Khoản";
+            this.btnQuanLyTaiKhoan.UseVisualStyleBackColor = true;
+            this.btnQuanLyTaiKhoan.Click += new System.EventHandler(this.btnQuanLyTaiKhoan_Click);
             // 
             // btnBaoCao
             // 
@@ -119,6 +131,7 @@ namespace QuanLyGym
 
         private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.Panel panelContent;
+        private System.Windows.Forms.Button btnQuanLyTaiKhoan;
         private System.Windows.Forms.Button btnBaoCao;
         private System.Windows.Forms.Button btnThietBi;
         private System.Windows.Forms.Button btnHopDong;

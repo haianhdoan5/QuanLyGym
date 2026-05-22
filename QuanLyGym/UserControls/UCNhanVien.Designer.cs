@@ -53,7 +53,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(10, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.Size = new System.Drawing.Size(78, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Mã Nhân Viên:";
             // 
@@ -62,7 +62,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(10, 40);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 13);
+            this.label2.Size = new System.Drawing.Size(82, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Tên Nhân Viên:";
             // 
@@ -71,7 +71,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(10, 70);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 13);
+            this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Số Điện Thoại:";
             // 
@@ -80,7 +80,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(10, 100);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.Size = new System.Drawing.Size(51, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "Chức Vụ:";
             // 
@@ -90,6 +90,7 @@
             this.txtMaNV.Name = "txtMaNV";
             this.txtMaNV.Size = new System.Drawing.Size(200, 20);
             this.txtMaNV.TabIndex = 4;
+            this.txtMaNV.TextChanged += new System.EventHandler(this.txtMaNV_TextChanged);
             // 
             // txtTenNV
             // 

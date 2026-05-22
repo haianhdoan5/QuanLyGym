@@ -43,7 +43,7 @@ namespace QuanLyGym
                 LuuThongTin.MaNV = taikhoan.MaNv;
                 LuuThongTin.MaHV = taikhoan.MaHv;
                 LuuThongTin.QuyenHan = taikhoan.QuyenHan;
-                LuuThongTin.LoaiNguoiDung = "NhanVien";
+                
 
                 // Phân loại nhân viên: PT, Nhân viên, Admin
                 if (taikhoan.QuyenHan != null && (taikhoan.QuyenHan.Contains("PT") || taikhoan.QuyenHan.Contains("PersonalTrainer") || taikhoan.QuyenHan.Contains("Huấn Luyện")))
@@ -51,6 +51,7 @@ namespace QuanLyGym
                     // Mở form dành cho PT
                     FormMain_PT frm = new FormMain_PT();
                     frm.Show();
+                    
                 }
                 else if (taikhoan.QuyenHan != null && (taikhoan.QuyenHan.Contains("Nhân Viên") || taikhoan.QuyenHan.Contains("NhanVien") || taikhoan.QuyenHan.ToLower().Contains("staff")))
                 {
@@ -77,7 +78,7 @@ namespace QuanLyGym
                     LuuThongTin.MaNV = null;
                     LuuThongTin.MaHV = taikkhoanHoiVien.MaHv;
                     LuuThongTin.QuyenHan = "HoiVien";
-                    LuuThongTin.LoaiNguoiDung = "HoiVien";
+                    
 
                     // Mở form dành cho hội viên
                     FormMain_HoiVien frm = new FormMain_HoiVien();

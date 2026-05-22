@@ -67,6 +67,12 @@ namespace QuanLyGym
             TargetControlToPanel(ucKhuyenMai);
         }
 
+        private void btnQuanLyTaiKhoan_Click(object sender, EventArgs e)
+        {
+            UCQuanLyTaiKhoan ucTaiKhoan = new UCQuanLyTaiKhoan();
+            TargetControlToPanel(ucTaiKhoan);
+        }
+
         private void panelMenu_Paint(object sender, PaintEventArgs e)
         {
 

@@ -63,23 +63,6 @@ namespace QuanLyGym.BLL
             }
         }
 
-        // Xóa thiết bị (Xóa vật lý hoặc cập nhật tình trạng thành 'Đã thanh lý')
-        public bool DeleteThietBi(string maTB)
-        {
-            try
-            {
-                var tb = db.ThietBiGym.Find(maTB);
-                if (tb == null) return false;
-
-                // Tuân thủ No Delete Policy: Thay vì xóa, cập nhật tình trạng
-                tb.TinhTrang = "Đã thanh lý";
-                db.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
+        
     }
 }
